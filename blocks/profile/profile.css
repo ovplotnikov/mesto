@@ -1,6 +1,5 @@
 .profile {
     display: flex;
-    flex-flow: row;
     align-items: center;
     margin: 40px auto 0;
     width: calc(100% - 200px * 2);
@@ -35,13 +34,6 @@
 
 @media screen and (max-width: 575px) {
     .profile {
-        display: flex;
-        align-items: center;
-        justify-items: center;
-        align-content: center;
-        justify-content: center;
-        align-self: center;
-        justify-self: center;
         flex-direction: column;
         min-height: 286px;
         width: 100%;

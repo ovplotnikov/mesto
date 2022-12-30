@@ -3,11 +3,12 @@
     font-weight: 500;
     font-size: 42px;
     line-height: 48px;
-    color: #FFFFFF;
+    color: #FFF;
     text-align: center;
     margin: 0;
     padding: 0;
-    text-overflow: clip;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     overflow: hidden;
 }
 
@@ -23,9 +24,7 @@
 
 @media screen and (max-width: 575px) {
     .profile__name {
-        text-align: center;
         margin-top: 26px;
-        align-self: center;
         margin-left: 27px;
     }
 }
