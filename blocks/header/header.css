@@ -1,0 +1,35 @@
+.header {
+    display: flex;
+    margin: 0 auto;
+    width: calc(100% - 200px * 2);
+    margin-top: 45px;
+    min-height: 74px;
+    box-sizing: border-box;
+    border: 1px solid #545454;
+}
+
+@media screen and (max-width: 991px) {
+    .header {
+        width: calc(100% - 150px * 2);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .header {
+        width: calc(100% - 120px * 2);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .header {
+        margin-top: 28px;
+        width: calc(100% - 90px * 2);
+        min-height: 56px;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .header {
+        width: 100%;
+    }
+}
