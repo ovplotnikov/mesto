@@ -1,0 +1,10 @@
+.elements__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 282px;
+    min-height: 76px;
+    background-color: #fff;
+    border-radius: 10px;
+}
