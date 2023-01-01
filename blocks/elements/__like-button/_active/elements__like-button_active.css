@@ -1,0 +1,9 @@
+.elements__like-button_active {
+    width: 22px;
+    height: 19px;
+    background: url(../../../../images/heart_active.svg);
+    cursor: pointer;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
