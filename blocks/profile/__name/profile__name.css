@@ -4,19 +4,31 @@
     font-size: 42px;
     line-height: 48px;
     color: #FFF;
-    text-align: center;
     margin: 0;
     padding: 0;
+    max-width: 450px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
 
+@media screen and (max-width: 1230px) {
+    .profile__name {
+        max-width: 350px;
+    }
+}
+
+@media screen and (max-width: 1130px) {
+    .profile__name {
+        max-width: 250px;
+    }
+}
 
 
 @media screen and (max-width: 700px) {
     .profile__name {
+        max-width: 180px;
         font-size: 27px;
         line-height: 33px;
     }
@@ -24,7 +36,8 @@
 
 @media screen and (max-width: 595px) {
     .profile__name {
-        margin-top: 26px;
-        margin-left: 27px;
+        max-width: 230px;
+        margin-top: 27px;
+        margin-left: 20px;
     }
 }
