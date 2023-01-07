@@ -1,8 +1,8 @@
-.links-opacity-60 {
+.button-opacity-hover {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
 
-.links-opacity-60:hover {
+.button-opacity-hover:hover {
     opacity: 60%;
 }

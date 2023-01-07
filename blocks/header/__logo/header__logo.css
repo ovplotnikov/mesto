@@ -2,6 +2,7 @@
     display: flex;
     max-width: 142px;
     align-self: flex-start;
+    margin-bottom: 40px;
 }
 
 
@@ -9,5 +10,6 @@
     .header__logo {
         max-width: 104px;
         margin-left: 27px;
+        margin-bottom: 32px;
     }
 }

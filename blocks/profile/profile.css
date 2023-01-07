@@ -4,7 +4,6 @@
     align-items: center;
     margin: 40px auto 0;
     width: calc(100% - 200px * 2);
-    max-height: 120px;
 }
 
 @media screen and (max-width: 1050px) {
@@ -22,21 +21,18 @@
 @media screen and (max-width: 850px) {
     .profile {
         width: calc(100% - 60px * 2);
-        min-height: 56px;
     }
 }
 
 @media screen and (max-width: 770px) {
     .profile {
         width: calc(100% - 20px * 2);
-        min-height: 56px;
     }
 }
 
 @media screen and (max-width: 595px) {
     .profile {
         flex-direction: column;
-        min-height: 286px;
         width: 100%;
     }
 }
