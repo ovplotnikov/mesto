@@ -2,8 +2,8 @@
 let popup = document.querySelector('.popup');
 let profileName = document.querySelector('.profile__name');
 let profileAbout = document.querySelector('.profile__about');
-let popupFormInputName = document.querySelector('.popup__form_input_name');
-let popupFormInputAbout = document.querySelector('.popup__form_input_about');
+let popupFormInputName = document.querySelector('.popup__input_name');
+let popupFormInputAbout = document.querySelector('.popup__input_about');
 
 
 addEventListener('click', (event) => {
@@ -27,10 +27,10 @@ addEventListener('click', (event) => {
 let formElement = document.querySelector('.popup__form');
 function handleFormSubmit (evt) {
     evt.preventDefault(); 
-    // Получите значение полей .popup__form_input_about и .popup__form_input_name из свойства value
+    // Получите значение полей .popup__input_about и .popup__input_name из свойства value
 
-    let popupFormInputName = document.querySelector('.popup__form_input_name');
-    let popupFormInputAbout = document.querySelector('.popup__form_input_about');
+    let popupFormInputName = document.querySelector('.popup__input_name');
+    let popupFormInputAbout = document.querySelector('.popup__input_about');
 
     profileName.textContent  = popupFormInputName.value;
     profileAbout.textContent = popupFormInputAbout.value;
