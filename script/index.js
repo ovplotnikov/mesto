@@ -2,9 +2,8 @@
 let popup = document.querySelector('.popup');
 let profileName = document.querySelector('.profile__name');
 let profileAbout = document.querySelector('.profile__about');
-let popupFormInputName = document.querySelector('.popup__input_name');
-let popupFormInputAbout = document.querySelector('.popup__input_about');
-
+let popupFormInputName = document.querySelector('.popup__input_value_name');
+let popupFormInputAbout = document.querySelector('.popup__input_value_about');
 
 addEventListener('click', (event) => {
   if (event.target.classList.contains('profile__edit-button')) {
@@ -23,22 +22,14 @@ addEventListener('click', (event) => {
   }
 });
 
-
 let formElement = document.querySelector('.popup__form');
 function handleFormSubmit (evt) {
     evt.preventDefault(); 
-    // Получите значение полей .popup__input_about и .popup__input_name из свойства value
-
-    let popupFormInputName = document.querySelector('.popup__input_name');
-    let popupFormInputAbout = document.querySelector('.popup__input_about');
-
     profileName.textContent  = popupFormInputName.value;
     profileAbout.textContent = popupFormInputAbout.value;
 
     popup.classList.remove('popup_opened');
 }
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
 
