@@ -1,4 +1,13 @@
 
+const likeButtons = document.querySelectorAll(".elements__like-button");
+
+for (let likeButton of likeButtons) {
+  likeButton.addEventListener("click", function() {
+    this.classList.toggle("elements__like-button_active");
+  });
+}
+
+
 let popupEditProfile = document.querySelector('.popup_type_edit-profile');
 let profileName = document.querySelector('.profile__name');
 let profileAbout = document.querySelector('.profile__about');
@@ -35,7 +44,8 @@ addEventListener('click', (event) => {
 
 });
 
-let formElement = document.querySelector('.popup__form');
+let formElement = document.getElementById('popup__form_type_edit-profile'); 
+
 function handleFormSubmit (evt) {
     evt.preventDefault(); 
     profileName.textContent  = popupFormInputName.value;

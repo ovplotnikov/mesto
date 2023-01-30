@@ -90,7 +90,7 @@
             <div class="popup__container">
                 <button class="popup__close-button button-opacity-hover" type="button"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="popup__form" name="edit">
+                <form class="popup__form" name="edit-profile" id="popup__form_type_edit-profile">
                     <input type="text" name="name" class="popup__input popup__input_value_name" placeholder="Имя"
                         minlength="2" maxlength="40" required>
                     <input type="text" name="about" class="popup__input popup__input_value_about" placeholder="О себе"
@@ -103,7 +103,7 @@
             <div class="popup__container">
                 <button class="popup__close-button button-opacity-hover" type="button"></button>
                 <h2 class="popup__title">Новое место</h2>
-                <form class="popup__form" name="add">
+                <form class="popup__form" name="add-card" id="popup__form_type_add-card">
                     <input type="text" name="name" class="popup__input popup__input_value_name" placeholder="Название"
                         minlength="2" maxlength="30" required>
                     <input type="url" name="link" class="popup__input popup__input_value_link"
@@ -111,9 +111,9 @@
                     <button class="popup__save-button" type="submit" aria-label="save button">Сохранить</button>
                 </form>
             </div>
-            <script src="script/index.js"></script>
         </div>
     </div>
+    <script src="script/index.js"></script>
 </body>
 
 </html>
