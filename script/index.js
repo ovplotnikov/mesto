@@ -40,12 +40,8 @@ const initialElements = [
 const template = document
   .querySelector("#elements-template")
   .content.querySelector(".elements__item");
-
-
+  
 const elementsList = document.querySelector(".elements__list");
-
-
-
 
 function renderElements () {
   initialElements.forEach((item) => {
@@ -59,10 +55,6 @@ function renderElements () {
 
 renderElements();
 
-
-
-
-
 function handleLikeButtons() {
   const likeButtons = document.querySelectorAll(".elements__like-button");
   for (let likeButton of likeButtons) {
@@ -73,10 +65,6 @@ function handleLikeButtons() {
 }
 
 handleLikeButtons();
-
-
-
-
 
 let popupEditProfile = document.querySelector('.popup_type_edit-profile');
 let profileName = document.querySelector('.profile__name');
@@ -132,16 +120,21 @@ function handleAddCardFormSubmit (evt) {
   handleLikeButtons();
 }
 
+function handleDeleteButtons() {
+  let deleteButtons = document.querySelectorAll('.elements__delete-button');
+  for (let deleteButton of deleteButtons) {
+    deleteButton.addEventListener('click', deleteCard);
+     function deleteCard (evt) {
+      evt.target.closest('.elements__item').remove();
+    }
+  }
+}
+
+handleDeleteButtons();
+
 document.getElementById('popup__form_type_add-card')
     .addEventListener('submit', handleAddCardFormSubmit);
 
 
-
-
 document.getElementById('popup__form_type_edit-profile')
         .addEventListener('submit', handleFormEditProfileSubmit);
-
-
-
-
-
