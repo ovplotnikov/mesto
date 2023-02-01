@@ -77,16 +77,19 @@ handleLikeButtons();
 
 
 
+
 let popupEditProfile = document.querySelector('.popup_type_edit-profile');
 let profileName = document.querySelector('.profile__name');
 let profileAbout = document.querySelector('.profile__about');
 let popupFormInputName = document.querySelector('.popup__input_value_name');
 let popupFormInputAbout = document.querySelector('.popup__input_value_about');
 let popupAddCard = document.querySelector('.popup_type_add-card');
+let popupImage = document.querySelector('.popup_type_image');
 
 function closePopups() {
   popupEditProfile.classList.remove('popup_opened');
   popupAddCard.classList.remove('popup_opened');
+  popupImage.classList.remove('popup_opened');
 }
 
 document.addEventListener('click', (event) => {
@@ -96,9 +99,15 @@ document.addEventListener('click', (event) => {
     popupFormInputAbout.value = profileAbout.textContent;
   } else if (event.target.classList.contains('profile__add-button')) {
     popupAddCard.classList.add('popup_opened');
+  } else if (event.target.classList.contains('elements__image')) {
+    document.querySelector('.popup_type_image').classList.add('popup_opened');
+    document.querySelector('.popup__image').src = event.target.src;
+    document.querySelector('.popup__image').alt = event.target.alt;
+    document.querySelector('.popup__image-title').textContent = event.target.alt;
   } else if (event.target.classList.contains('popup__close-button') || 
              event.target.classList.contains('popup_type_edit-profile') ||
-             event.target.classList.contains('popup_type_add-card')) {
+             event.target.classList.contains('popup_type_add-card') ||
+            event.target.classList.contains('popup_type_image')) {
     closePopups();
   }
 });
@@ -131,5 +140,8 @@ document.getElementById('popup__form_type_add-card')
 
 document.getElementById('popup__form_type_edit-profile')
         .addEventListener('submit', handleFormEditProfileSubmit);
+
+
+
 
 
