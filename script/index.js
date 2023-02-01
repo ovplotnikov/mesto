@@ -22,6 +22,18 @@ const initialElements = [
   {
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  },
+  {
+    name: 'Карачаевск',
+    link: './images/kirill-pershin-1088404-unsplash.jpg'
+  },
+  {
+    name: 'Гора Эльбрус',
+    link: './images/kirill-pershin-1404681-unsplash.jpg'
+  },
+  {
+    name: 'Домбай',
+    link: './images/kirill-pershin-1556355-unsplash.jpg'
   }
 ];
 
@@ -91,19 +103,33 @@ document.addEventListener('click', (event) => {
   }
 });
 
-function handleFormSubmit (evt) {
+function handleFormEditProfileSubmit (evt) {
   evt.preventDefault(); 
   profileName.textContent = popupFormInputName.value;
   profileAbout.textContent = popupFormInputAbout.value;
   closePopups();
 }
 
+function handleAddCardFormSubmit (evt) {
+  evt.preventDefault();
+  initialElements.unshift({
+    name: document.querySelector('.popup__input_value_place').value,
+    link: document.querySelector('.popup__input_value_link').value
+  });
+  elementsList.innerHTML = '';
+
+  renderElements();
+  closePopups();
+  handleLikeButtons();
+}
+
+document.getElementById('popup__form_type_add-card')
+    .addEventListener('submit', handleAddCardFormSubmit);
+
+
+
+
 document.getElementById('popup__form_type_edit-profile')
-        .addEventListener('submit', handleFormSubmit);
-
-
-
-
-
+        .addEventListener('submit', handleFormEditProfileSubmit);
 
 
