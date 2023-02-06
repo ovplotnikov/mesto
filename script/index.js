@@ -1,3 +1,15 @@
+// переменные для попапов
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const profileName = document.querySelector('.profile__name');
+const profileAbout = document.querySelector('.profile__about');
+const popupFormInputName = document.querySelector('.popup__input_value_name');
+const popupFormInputAbout = document.querySelector('.popup__input_value_about');
+const popupAddCard = document.querySelector('.popup_type_add-card');
+const popupImage = document.querySelector('.popup_type_image');
+const imagePopup = document.querySelector('.popup__image');
+const titleImagePopup = document.querySelector('.popup__image-title');
+
+
 const initialElements = [
   {
     name: 'Архыз',
@@ -25,6 +37,7 @@ const initialElements = [
   }
 ];
 
+
 const template = document
   .querySelector("#elements-template")
   .content.querySelector(".elements__item");
@@ -39,6 +52,7 @@ function createCard(item) { // функция создания карточки
   return element; // возвращаем готовую карточку
 }
 
+
 function handleLikeButtons () {
   const likeButtons = document.querySelector(".elements__like-button");
   likeButtons.addEventListener("click", function() {
@@ -46,13 +60,13 @@ function handleLikeButtons () {
   });
 }
 
+
 function handleDeleteButtons () {
   const deleteButtons = document.querySelector(".elements__delete-button");
   deleteButtons.addEventListener("click", function() {
     deleteButtons.closest(".elements__item").remove();
   });
 }
-
 
 
 function renderElements() {
@@ -64,42 +78,8 @@ function renderElements() {
   });
 }
 
-// // Функция отрисовки начальных карточек
-// function renderElements () {
-//   initialElements.forEach((item) => {
-//     const element = template.cloneNode(true);
-//     element.querySelector(".elements__title").textContent = item.name;
-//     element.querySelector(".elements__image").src = item.link;
-//     element.querySelector(".elements__image").alt = item.name;
-//     elementsList.append(element);
-//   });
-// }
-
 renderElements(); // Вызов функции отрисовки начальных карточек
 
-
-// Функция работы с лайками
-// function handleLikeButtons() {
-//   const likeButtons = document.querySelectorAll(".elements__like-button");
-//   for (let likeButton of likeButtons) {
-//     likeButton.addEventListener("click", function() {
-//       likeButton.classList.toggle("elements__like-button_active");
-//     });
-//   }
-// }
-
-// handleLikeButtons(); // Вызов функции работы с лайками
-
-
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const profileName = document.querySelector('.profile__name');
-const profileAbout = document.querySelector('.profile__about');
-const popupFormInputName = document.querySelector('.popup__input_value_name');
-const popupFormInputAbout = document.querySelector('.popup__input_value_about');
-const popupAddCard = document.querySelector('.popup_type_add-card');
-const popupImage = document.querySelector('.popup_type_image');
-const imagePopup = document.querySelector('.popup__image');
-const titleImagePopup = document.querySelector('.popup__image-title');
 
 // Функция закрытия попапов
 function closePopups() {
@@ -107,6 +87,7 @@ function closePopups() {
   if (!openedPopup) return; 
   openedPopup.classList.remove('popup_opened');
 }
+
 
 // Функция открытия попапов
 function openPopup(popup) {
@@ -135,6 +116,7 @@ document.addEventListener('click', (event) => {
   }
 });
 
+
 // Функция редактирования профиля
 function handleFormEditProfileSubmit (evt) {
   evt.preventDefault(); 
@@ -142,6 +124,7 @@ function handleFormEditProfileSubmit (evt) {
   profileAbout.textContent = popupFormInputAbout.value;
   closePopups();
 }
+
 
 // Слушатель события на кнопку Submit редактирования профиля
 document.getElementById('popup__form_type_edit-profile')
@@ -163,18 +146,6 @@ function handleAddCardFormSubmit (event) {
 }
 
 
-// function handleAddCardFormSubmit (event) {
-//   event.preventDefault();
-//   const element = template.cloneNode(true);
-//   element.querySelector(".elements__title").textContent = event.target.elements.name.value;
-//   element.querySelector(".elements__image").src = event.target.elements.link.value;
-//   element.querySelector(".elements__image").alt = event.target.elements.name.value;
-//   elementsList.prepend(element);
-//   event.target.reset();
-//   closePopups();
-//   handleLikeButtons(); // Чтобы лайки работали на новых карточках
-//   handleDeleteButtons(); // Чтобы удалялись новые карточки
-// }
 
 // Слушатель события на кнопку Submit добавления карточки
 document.getElementById('popup__form_type_add-card')
