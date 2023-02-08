@@ -53,16 +53,26 @@ function createCard(item) { // функция создания карточки
 }
 
 
-function handleLikeButtons () {
-  const likeButtons = document.querySelector(".elements__like-button");
+
+// function handleLikeButtons () {
+//   const likeButtons = document.querySelector(".elements__like-button"); 
+//   likeButtons.addEventListener("click", function() {
+//     likeButtons.classList.toggle("elements__like-button_active"); 
+//   });
+// }
+
+// Функция обработки кнопки лайка, она устанавливает слушатель события на кнопку лайка и при клике на нее добавляет или удаляет класс
+function handleLikeButtons(element) {
+  const likeButtons = element.querySelector(".elements__like-button");
   likeButtons.addEventListener("click", function() {
     likeButtons.classList.toggle("elements__like-button_active");
   });
 }
 
 
-function handleDeleteButtons () {
-  const deleteButtons = document.querySelector(".elements__delete-button");
+
+function handleDeleteButtons (element) {
+  const deleteButtons = element.querySelector(".elements__delete-button");
   deleteButtons.addEventListener("click", function() {
     deleteButtons.closest(".elements__item").remove();
   });
