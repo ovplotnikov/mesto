@@ -44,47 +44,30 @@ const template = document
   
 const elementsList = document.querySelector(".elements__list");
 
-function createCard(item) { // функция создания карточки
+
+// Функция создания карточки
+function createCard(item) {
   const element = template.cloneNode(true); // клонируем шаблон
   element.querySelector(".elements__title").textContent = item.name;
   element.querySelector(".elements__image").src = item.link;
   element.querySelector(".elements__image").alt = item.name;
-  return element; // возвращаем готовую карточку
-}
-
-
-
-// function handleLikeButtons () {
-//   const likeButtons = document.querySelector(".elements__like-button"); 
-//   likeButtons.addEventListener("click", function() {
-//     likeButtons.classList.toggle("elements__like-button_active"); 
-//   });
-// }
-
-// Функция обработки кнопки лайка, она устанавливает слушатель события на кнопку лайка и при клике на нее добавляет или удаляет класс
-function handleLikeButtons(element) {
   const likeButtons = element.querySelector(".elements__like-button");
   likeButtons.addEventListener("click", function() {
     likeButtons.classList.toggle("elements__like-button_active");
   });
-}
-
-
-
-function handleDeleteButtons (element) {
   const deleteButtons = element.querySelector(".elements__delete-button");
   deleteButtons.addEventListener("click", function() {
     deleteButtons.closest(".elements__item").remove();
   });
+  return element; // возвращаем готовую карточку
 }
 
 
+// Функция отрисовки начальных карточек
 function renderElements() {
   initialElements.forEach((item) => {
     const element = createCard(item);
     elementsList.prepend(element);
-    handleLikeButtons(element);
-    handleDeleteButtons(element);
   });
 }
 
@@ -151,29 +134,9 @@ function handleAddCardFormSubmit (event) {
   elementsList.prepend(element);
   event.target.reset();
   closePopups();
-  handleLikeButtons(element); // Чтобы лайки работали на новых карточках
-  handleDeleteButtons(element); // Чтобы работала кнопка удаления на новых карточках
 }
-
 
 
 // Слушатель события на кнопку Submit добавления карточки
 document.getElementById('popup__form_type_add-card')
     .addEventListener('submit', handleAddCardFormSubmit);
-
-
-// Функция удаления карточки
-function handleDeleteButtons() {
-  const deleteButtons = document.querySelectorAll('.elements__delete-button');
-  for (const deleteButton of deleteButtons) {
-    deleteButton.addEventListener('click', deleteCard);
-     function deleteCard (evt) {
-      evt.target.closest('.elements__item').remove();
-    }
-  }
-}
-
-handleDeleteButtons(); // Вызов функции удаления карточки
-
-
-
