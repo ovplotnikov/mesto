@@ -82,6 +82,7 @@ function closePopups() {
 }
 
 
+
 // Функция открытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -140,3 +141,12 @@ function handleAddCardFormSubmit (event) {
 // Слушатель события на кнопку Submit добавления карточки
 document.getElementById('popup__form_type_add-card')
     .addEventListener('submit', handleAddCardFormSubmit);
+
+
+// Слушатель события на кнопку Esc
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closePopups();
+  }
+}
+);
