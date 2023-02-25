@@ -9,7 +9,7 @@ const popupImage = document.querySelector('.popup_type_image');
 const imagePopup = document.querySelector('.popup__image');
 const titleImagePopup = document.querySelector('.popup__image-title');
 
-
+// Массив с первоначальными карточками
 const initialElements = [
   {
     name: 'Архыз',
@@ -37,15 +37,17 @@ const initialElements = [
   }
 ];
 
-
+// Шаблон карточки
 const template = document
   .querySelector("#elements-template")
   .content.querySelector(".elements__item");
   
+// Список карточек
 const elementsList = document.querySelector(".elements__list");
 
 
 // Функция создания карточки
+
 function createCard(item) {
   const element = template.cloneNode(true); // клонируем шаблон
   element.querySelector(".elements__title").textContent = item.name;
@@ -125,6 +127,8 @@ document.getElementById('popup__form_type_edit-profile')
         .addEventListener('submit', handleFormEditProfileSubmit);
 
 
+
+
 // Функция добавления карточки
 function handleAddCardFormSubmit (event) {
   event.preventDefault();
@@ -134,7 +138,13 @@ function handleAddCardFormSubmit (event) {
   });
   elementsList.prepend(element);
   event.target.reset();
+  // переключаем кнопку Submit формы добавления карточки в неактивное состояние
+  const popupFormSubmitButton = event.target.querySelector('.popup__save-button');
+  popupFormSubmitButton.classList.add('popup__save-button_disabled');
+  popupFormSubmitButton.setAttribute('disabled', true);
   closePopups();
+ 
+
 }
 
 
@@ -147,6 +157,13 @@ document.getElementById('popup__form_type_add-card')
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     closePopups();
+    // удаляем слушатель события на кнопку Esc
+    document.removeEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closePopups();
+      }
+    }
+    );
   }
 }
 );
