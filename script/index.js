@@ -8,6 +8,7 @@ const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupImage = document.querySelector('.popup_type_image');
 const imagePopup = document.querySelector('.popup__image');
 const titleImagePopup = document.querySelector('.popup__image-title');
+const popupFormSubmitButton = document.querySelector('.popup__save-button');
 
 // Массив с первоначальными карточками
 const initialElements = [
@@ -139,12 +140,9 @@ function handleAddCardFormSubmit (event) {
   elementsList.prepend(element);
   event.target.reset();
   // переключаем кнопку Submit формы добавления карточки в неактивное состояние
-  const popupFormSubmitButton = event.target.querySelector('.popup__save-button');
-  popupFormSubmitButton.classList.add('popup__save-button_disabled');
-  popupFormSubmitButton.setAttribute('disabled', true);
+  event.submitter.classList.add('popup__save-button_disabled');
+  event.submitter.setAttribute('disabled', true);
   closePopups();
- 
-
 }
 
 
