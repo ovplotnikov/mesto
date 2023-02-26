@@ -82,6 +82,7 @@ function closePopups() {
   const openedPopup = document.querySelector('.popup_opened');
   if (!openedPopup) return; 
   openedPopup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 
@@ -89,6 +90,7 @@ function closePopups() {
 // Функция открытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 }
 
 
@@ -146,22 +148,15 @@ function handleAddCardFormSubmit (event) {
 }
 
 
+
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened') 
+    closePopups();
+  }
+}
+
+
 // Слушатель события на кнопку Submit добавления карточки
 document.getElementById('popup__form_type_add-card')
     .addEventListener('submit', handleAddCardFormSubmit);
-
-
-// Слушатель события на кнопку Esc
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    closePopups();
-    // удаляем слушатель события на кнопку Esc
-    document.removeEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        closePopups();
-      }
-    }
-    );
-  }
-}
-);
