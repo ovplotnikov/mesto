@@ -1,5 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import { validationConfig, initialElements } from './constants.js';
 
 
 // переменные для попапов
@@ -12,42 +13,6 @@ const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupImage = document.querySelector('.popup_type_image');
 const imagePopup = document.querySelector('.popup__image');
 const titleImagePopup = document.querySelector('.popup__image-title');
-const popupFormSubmitButton = document.querySelector('.popup__save-button');
-
-// Массив с первоначальными карточками
-const initialElements = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-
-// Шаблон карточки
-// const template = document
-//   .querySelector("#elements-template")
-//   .content.querySelector(".elements__item");
-  
 
 
 // Список карточек
@@ -63,19 +28,15 @@ function createCard(data, templateSelector) {
 }
 
 
-
 // Функция отрисовки начальных карточек
-function renderElements() {
+function renderInitialElements() {
   initialElements.forEach((item) => {
     const cardElement = createCard(item, ".elements-template");
     elementsList.prepend(cardElement);
   });
 }
 
-
-
-
-renderElements();
+renderInitialElements();
 
 
 // Функция закрытия попапов
@@ -85,7 +46,6 @@ function closePopups() {
   openedPopup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeByEscape);
 }
-
 
 
 // Функция открытия попапов
@@ -104,19 +64,8 @@ function enableValidation(config) {
   });
 }
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
 
-
-
-
-
+enableValidation(validationConfig);
 
 
 // Слушатель события на кнопки открытия попапов
@@ -152,7 +101,7 @@ function handleFormEditProfileSubmit (evt) {
 
 // Слушатель события на кнопку Submit редактирования профиля
 document.getElementById('popup__form_type_edit-profile')
-        .addEventListener('submit', handleFormEditProfileSubmit);
+.addEventListener('submit', handleFormEditProfileSubmit);
 
 
 
@@ -173,7 +122,7 @@ function handleAddCardFormSubmit (event) {
 }
 
 
-
+// Функция закрытия попапов по нажатию на Esc
 function closeByEscape(evt) {
   if (evt.key === 'Escape') {
     closePopups();
@@ -183,4 +132,4 @@ function closeByEscape(evt) {
 
 // Слушатель события на кнопку Submit добавления карточки
 document.getElementById('popup__form_type_add-card')
-    .addEventListener('submit', handleAddCardFormSubmit);
+.addEventListener('submit', handleAddCardFormSubmit);
