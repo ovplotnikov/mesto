@@ -1,3 +1,7 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
+
 // переменные для попапов
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const profileName = document.querySelector('.profile__name');
@@ -38,43 +42,40 @@ const initialElements = [
   }
 ];
 
+
 // Шаблон карточки
-const template = document
-  .querySelector("#elements-template")
-  .content.querySelector(".elements__item");
+// const template = document
+//   .querySelector("#elements-template")
+//   .content.querySelector(".elements__item");
   
+
+
 // Список карточек
 const elementsList = document.querySelector(".elements__list");
 
 
 // Функция создания карточки
 
-function createCard(item) {
-  const element = template.cloneNode(true); // клонируем шаблон
-  element.querySelector(".elements__title").textContent = item.name;
-  element.querySelector(".elements__image").src = item.link;
-  element.querySelector(".elements__image").alt = item.name;
-  const likeButtons = element.querySelector(".elements__like-button");
-  likeButtons.addEventListener("click", function() {
-    likeButtons.classList.toggle("elements__like-button_active");
-  });
-  const deleteButtons = element.querySelector(".elements__delete-button");
-  deleteButtons.addEventListener("click", function() {
-    deleteButtons.closest(".elements__item").remove();
-  });
-  return element; // возвращаем готовую карточку
+function createCard(data, templateSelector) {
+  const card = new Card(data, templateSelector);
+  const cardElement = card.generateCard();
+  return cardElement;
 }
+
 
 
 // Функция отрисовки начальных карточек
 function renderElements() {
   initialElements.forEach((item) => {
-    const element = createCard(item);
-    elementsList.prepend(element);
+    const cardElement = createCard(item, ".elements-template");
+    elementsList.prepend(cardElement);
   });
 }
 
-renderElements(); // Вызов функции отрисовки начальных карточек
+
+
+
+renderElements();
 
 
 // Функция закрытия попапов
@@ -89,9 +90,13 @@ function closePopups() {
 
 // Функция открытия попапов
 function openPopup(popup) {
+
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEscape);
 }
+
+
+
 
 
 // Слушатель события на кнопки открытия попапов
@@ -138,7 +143,7 @@ function handleAddCardFormSubmit (event) {
   const element = createCard({
     name: event.target.elements.name.value,
     link: event.target.elements.link.value
-  });
+  }, ".elements-template");
   elementsList.prepend(element);
   event.target.reset();
   // переключаем кнопку Submit формы добавления карточки в неактивное состояние
@@ -151,7 +156,6 @@ function handleAddCardFormSubmit (event) {
 
 function closeByEscape(evt) {
   if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened') 
     closePopups();
   }
 }
