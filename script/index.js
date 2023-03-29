@@ -39,8 +39,8 @@ function renderInitialElements() {
 renderInitialElements();
 
 
-// Функция закрытия попапов
-function closePopups() {
+// Функция закрытия попапа
+function closeOpenedPopup() {
   const openedPopup = document.querySelector('.popup_opened');
   if (!openedPopup) return; 
   openedPopup.classList.remove('popup_opened');
@@ -82,11 +82,10 @@ document.addEventListener('click', (event) => {
     imagePopup.alt = event.target.alt;
     titleImagePopup.textContent = event.target.alt;
   } else if (event.target.classList.contains('popup__close-button') || 
-             event.target.classList.contains('popup_type_edit-profile') ||
-             event.target.classList.contains('popup_type_add-card') ||
-             event.target.classList.contains('popup_type_image')) {
-    closePopups();
-  }
+  (Array.from(event.target.classList).some(className => className.includes('popup_type_')))) {
+
+  closeOpenedPopup(); 
+} 
 });
 
 
@@ -95,7 +94,7 @@ function handleFormEditProfileSubmit (evt) {
   evt.preventDefault(); 
   profileName.textContent = popupFormInputName.value;
   profileAbout.textContent = popupFormInputAbout.value;
-  closePopups();
+  closeOpenedPopup();
 }
 
 
@@ -118,14 +117,14 @@ function handleAddCardFormSubmit (event) {
   // переключаем кнопку Submit формы добавления карточки в неактивное состояние
   event.submitter.classList.add('popup__save-button_disabled');
   event.submitter.setAttribute('disabled', true);
-  closePopups();
+  closeOpenedPopup();
 }
 
 
 // Функция закрытия попапов по нажатию на Esc
 function closeByEscape(evt) {
   if (evt.key === 'Escape') {
-    closePopups();
+    closeOpenedPopup();
   }
 }
 
