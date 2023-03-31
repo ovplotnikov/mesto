@@ -56,13 +56,15 @@ function openPopup(popup) {
 }
 
 
+const validators = {};
 
 // Функция включения валидации форм
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
-    const formValidator = new FormValidator(config, formElement);
+    const formValidator = new FormValidator(config, formElement); 
     formValidator.enableValidation();
+    validators[formElement.getAttribute('name')] = formValidator;
   });
 }
 
@@ -116,9 +118,7 @@ function handleAddCardFormSubmit (event) {
   }, ".elements-template");
   elementsList.prepend(element);
   event.target.reset();
-  // переключаем кнопку Submit формы добавления карточки в неактивное состояние
-  event.submitter.classList.add('popup__save-button_disabled');
-  event.submitter.setAttribute('disabled', true);
+
   closeOpenedPopup();
 }
 
