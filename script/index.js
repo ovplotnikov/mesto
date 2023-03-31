@@ -55,6 +55,8 @@ function openPopup(popup) {
   document.addEventListener('keydown', closeByEscape);
 }
 
+
+
 // Функция включения валидации форм
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
