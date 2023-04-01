@@ -86,7 +86,7 @@ document.addEventListener('click', (event) => {
     imagePopup.alt = event.target.alt;
     titleImagePopup.textContent = event.target.alt;
   } else if (event.target.classList.contains('popup__close-button') || 
-  (Array.from(event.target.classList).some(className => className.includes('popup_type_')))) {
+    event.target.classList.contains('popup')) {
 
   closeOpenedPopup(); 
 } 
@@ -109,7 +109,7 @@ document.getElementById('popup__form_type_edit-profile')
 
 
 
-// Функция добавления карточки
+// Функция обработки кнопки Submit добавления карточки
 function handleAddCardFormSubmit (event) {
   event.preventDefault();
   const element = createCard({
@@ -118,6 +118,8 @@ function handleAddCardFormSubmit (event) {
   }, ".elements-template");
   elementsList.prepend(element);
   event.target.reset();
+  validators[event.target.getAttribute('name')].toggleButtonState();
+
 
   closeOpenedPopup();
 }
