@@ -63,3 +63,5 @@ export default class Card {
         popupImageSrc.alt = this._name;
     }
 }
+
+// Path: 
