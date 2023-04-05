@@ -1,0 +1,15 @@
+{
+  "name": "yandex_praktikum",
+  "version": "0.0.1",
+  "description": "Четвертый проект курса Яндекс.Практикум. Интерактивная страница, где можно создать свой профиль, выложить фотографию, поставить лайк.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Oleg Plotnikov",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.77.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
