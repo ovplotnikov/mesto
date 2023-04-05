@@ -4,7 +4,7 @@
   "description": "Четвертый проект курса Яндекс.Практикум. Интерактивная страница, где можно создать свой профиль, выложить фотографию, поставить лайк.",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && webpack --mode production",
+    "build": "webpack --mode production",
     "dev": "webpack serve"
   },
   "author": "Oleg Plotnikov",
@@ -13,6 +13,7 @@
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
     "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "webpack": "^5.77.0",
     "webpack-cli": "^5.0.1",
