@@ -4,7 +4,8 @@
   "description": "Четвертый проект курса Яндекс.Практикум. Интерактивная страница, где можно создать свой профиль, выложить фотографию, поставить лайк.",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && webpack"
+    "build": "rm -rf dist && webpack --mode production",
+    "dev": "webpack serve"
   },
   "author": "Oleg Plotnikov",
   "license": "ISC",
