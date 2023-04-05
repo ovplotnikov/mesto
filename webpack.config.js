@@ -1,5 +1,8 @@
 // webpack.config.js
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // подключите плагин
+
+const path = require('path');
 
 module.exports = {
     entry: { main: './src/index.js' },
@@ -15,17 +18,16 @@ module.exports = {
     port: 8080,
     open: true
   },
-    module: {
-    rules: [ // rules — это массив правил
-      // добавим в него объект правил для бабеля
-      {
-        // регулярное выражение, которое ищет все js файлы
-        test: /\.js$/,
-        // при обработке этих файлов нужно использовать babel-loader
-        use: 'babel-loader',
-        // исключает папку node_modules, файлы в ней обрабатывать не нужно
-        exclude: '/node_modules/'
-      }
-      ]
-  }
-};
+  module: {
+    rules: [{
+      test: /\.js$/,
+      use: 'babel-loader',
+      exclude: /node_modules/
+    }]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html' // путь к файлу index.html
+    }),
+  ]
+}; 
