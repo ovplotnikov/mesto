@@ -3,6 +3,7 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
 import Popup from "./Popup.js";
+import PopupWithImage from './PopupWithImage.js';
 import { validationConfig, initialElements } from "./constants.js";
 
 // переменные для попапов
@@ -41,7 +42,7 @@ elementsSection.renderItems();
 // Создание экземпляров класса Popup для каждого попапа
 const popupEditProfileInstance = new Popup(".popup_type_edit-profile");
 const popupAddCardInstance = new Popup(".popup_type_add-card");
-const popupImageInstance = new Popup(".popup_type_image");
+const popupImageInstance = new PopupWithImage(".popup_type_image");
 
 // Установка слушателей событий для экземпляров класса Popup
 popupEditProfileInstance.setEventListeners();
@@ -64,18 +65,18 @@ enableValidation(validationConfig);
 
 // Слушатель события на кнопки открытия попапов
 document.addEventListener("click", (event) => {
-if (event.target.classList.contains("profile__edit-button")) {
-popupEditProfileInstance.open();
-popupFormInputName.value = profileName.textContent;
-popupFormInputAbout.value = profileAbout.textContent;
-} else if (event.target.classList.contains("profile__add-button")) {
-popupAddCardInstance.open();
-} else if (event.target.classList.contains("elements__image")) {
-popupImageInstance.open();
-imagePopup.src = event.target.src;
-imagePopup.alt = event.target.alt;
-titleImagePopup.textContent = event.target.alt;
-}
+  if (event.target.classList.contains("profile__edit-button")) {
+    popupEditProfileInstance.open();
+    popupFormInputName.value = profileName.textContent;
+    popupFormInputAbout.value = profileAbout.textContent;
+  } else if (event.target.classList.contains("profile__add-button")) {
+    popupAddCardInstance.open();
+  } else if (event.target.classList.contains("elements__image")) {
+    popupImageInstance.open({
+      src: event.target.src,
+      caption: event.target.alt,
+    });
+  }
 });
 
 // Функция редактирования профиля
