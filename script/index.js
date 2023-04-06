@@ -3,7 +3,6 @@ import FormValidator from './FormValidator.js';
 import Section from './Section.js';
 import { validationConfig, initialElements } from './constants.js';
 
-
 // переменные для попапов
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const profileName = document.querySelector('.profile__name');
@@ -19,27 +18,14 @@ const titleImagePopup = document.querySelector('.popup__image-title');
 // Список карточек
 const elementsList = document.querySelector(".elements__list");
 
-
 // Функция создания карточки
-
 function createCard(data, templateSelector) {
   const card = new Card(data, templateSelector);
   const cardElement = card.generateCard();
   return cardElement;
 }
 
-
-// Функция отрисовки начальных карточек
-// function renderInitialElements() {
-//   initialElements.forEach((item) => {
-//     const cardElement = createCard(item, ".elements-template");
-//     elementsList.prepend(cardElement);
-//   });
-// }
-
-// renderInitialElements();
-
-// Create a new instance of the Section class
+// Создание экземпляра класса Section для отрисовки карточек
 const elementsSection = new Section(
   {
     items: initialElements,
@@ -51,7 +37,7 @@ const elementsSection = new Section(
   ".elements__list"
 );
 
-// Call the renderItems method to render the initial elements
+// Вызов метода renderItems для рендеринга исходных элементов.
 elementsSection.renderItems();
 
 
@@ -85,9 +71,7 @@ function enableValidation(config) {
   });
 }
 
-
 enableValidation(validationConfig);
-
 
 // Слушатель события на кнопки открытия попапов
 document.addEventListener('click', (event) => {
@@ -125,7 +109,7 @@ document.getElementById('popup__form_type_edit-profile')
 
 
 
-
+// Функция обработки события Submit формы добавления карточки
 function handleAddCardFormSubmit(event) {
   event.preventDefault();
   const element = createCard(
@@ -135,7 +119,7 @@ function handleAddCardFormSubmit(event) {
     },
     ".elements-template"
   );
-  // Use the addItem method from the elementsSection instance instead of directly appending to elementsList
+  // Используем метод addItem из экземпляра elementsSection вместо прямого добавления к elementsList
   elementsSection.addItem(element);
   event.target.reset();
   validators[event.target.getAttribute("name")].toggleButtonState();
