@@ -1,5 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import Section from './Section.js';
 import { validationConfig, initialElements } from './constants.js';
 
 
@@ -29,14 +30,30 @@ function createCard(data, templateSelector) {
 
 
 // Функция отрисовки начальных карточек
-function renderInitialElements() {
-  initialElements.forEach((item) => {
-    const cardElement = createCard(item, ".elements-template");
-    elementsList.prepend(cardElement);
-  });
-}
+// function renderInitialElements() {
+//   initialElements.forEach((item) => {
+//     const cardElement = createCard(item, ".elements-template");
+//     elementsList.prepend(cardElement);
+//   });
+// }
 
-renderInitialElements();
+// renderInitialElements();
+
+// Create a new instance of the Section class
+const elementsSection = new Section(
+  {
+    items: initialElements,
+    renderer: (item) => {
+      const cardElement = createCard(item, ".elements-template");
+      return cardElement;
+    },
+  },
+  ".elements__list"
+);
+
+// Call the renderItems method to render the initial elements
+elementsSection.renderItems();
+
 
 
 // Функция закрытия попапа
@@ -109,21 +126,22 @@ document.getElementById('popup__form_type_edit-profile')
 
 
 
-// Функция обработки кнопки Submit добавления карточки
-function handleAddCardFormSubmit (event) {
+function handleAddCardFormSubmit(event) {
   event.preventDefault();
-  const element = createCard({
-    name: event.target.elements.name.value,
-    link: event.target.elements.link.value
-  }, ".elements-template");
-  elementsList.prepend(element);
+  const element = createCard(
+    {
+      name: event.target.elements.name.value,
+      link: event.target.elements.link.value,
+    },
+    ".elements-template"
+  );
+  // Use the addItem method from the elementsSection instance instead of directly appending to elementsList
+  elementsSection.addItem(element);
   event.target.reset();
-  validators[event.target.getAttribute('name')].toggleButtonState();
-
+  validators[event.target.getAttribute("name")].toggleButtonState();
 
   closeOpenedPopup();
 }
-
 
 // Функция закрытия попапов по нажатию на Esc
 function closeByEscape(evt) {
