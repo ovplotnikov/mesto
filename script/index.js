@@ -4,11 +4,16 @@ import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
 import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImage from './PopupWithImage.js';
+import UserInfo from './UserInfo.js';
 import { validationConfig, initialElements } from "./constants.js";
 
+// Создание экземпляра класса UserInfo
+const userInfo = new UserInfo({
+  nameSelector: ".profile__name",
+  aboutSelector: ".profile__about"
+});
+
 // переменные для попапов
-const profileName = document.querySelector(".profile__name");
-const profileAbout = document.querySelector(".profile__about");
 const popupFormInputName = document.querySelector(".popup__input_value_name");
 const popupFormInputAbout = document.querySelector(".popup__input_value_about");
 
@@ -36,8 +41,10 @@ elementsSection.renderItems();
 
 // Обработчики сабмита форм
 function handleFormEditProfileSubmit(formData) {
-  profileName.textContent = formData.name;
-  profileAbout.textContent = formData.about;
+  userInfo.setUserInfo({
+    name: formData.name,
+    about: formData.about
+  });
 }
 
 function handleAddCardFormSubmit(formData) {
@@ -79,14 +86,15 @@ enableValidation(validationConfig);
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("profile__edit-button")) {
     popupEditProfileInstance.open();
-    popupFormInputName.value = profileName.textContent;
-    popupFormInputAbout.value = profileAbout.textContent;
+    const currentUserInfo = userInfo.getUserInfo();
+    popupFormInputName.value = currentUserInfo.name;
+    popupFormInputAbout.value = currentUserInfo.about;
   } else if (event.target.classList.contains("profile__add-button")) {
-  popupAddCardInstance.open();
-  } else if (event.target.classList.contains("elements__image")) {
-  popupImageInstance.open({
-  src: event.target.src,
-  caption: event.target.alt,
-  });
-  }
-  });
+    popupAddCardInstance.open();
+    } else if (event.target.classList.contains("elements__image")) {
+    popupImageInstance.open({
+    src: event.target.src,
+    caption: event.target.alt,
+    });
+    }
+    });
