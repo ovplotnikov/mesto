@@ -5,6 +5,10 @@ export const popupFormInputName = document.querySelector(
 export const popupFormInputAbout = document.querySelector(
   ".popup__input_value_about"
 );
+export const editProfileButton = document.querySelector(
+  ".profile__edit-button"
+);
+export const addCardButton = document.querySelector(".profile__add-button");
 
 export const validationConfig = {
   formSelector: ".popup__form",

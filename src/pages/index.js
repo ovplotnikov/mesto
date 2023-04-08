@@ -10,6 +10,8 @@ import {
   initialElements,
   popupFormInputName,
   popupFormInputAbout,
+  editProfileButton,
+  addCardButton,
 } from "../utils/constants.js";
 
 // Создаем экземпляр класса UserInfo
@@ -54,8 +56,22 @@ function handleFormEditProfileSubmit(formData) {
     name: formData.name,
     about: formData.about,
   });
+  popupEditProfileInstance.close();
 }
 
+// Функция обработки отправки формы добавления карточки
+// function handleAddCardFormSubmit(formData) {
+//   const element = createCard(
+//     {
+//       name: formData.name,
+//       link: formData.link,
+//     },
+//     ".elements-template"
+//   );
+//   cardsSection.addItem(element);
+// }
+
+// Функция обработки отправки формы добавления карточки
 // Функция обработки отправки формы добавления карточки
 function handleAddCardFormSubmit(formData) {
   const element = createCard(
@@ -66,6 +82,11 @@ function handleAddCardFormSubmit(formData) {
     ".elements-template"
   );
   cardsSection.addItem(element);
+  const addCardForm = document
+    .querySelector(".popup_type_add-card")
+    .querySelector(validationConfig.formSelector);
+  validators[addCardForm.name].toggleButtonState();
+  popupAddCardInstance.close();
 }
 
 // Создаем экземпляры класса PopupWithForm для каждого всплывающего окна.
@@ -98,14 +119,16 @@ function enableValidation(config) {
 
 enableValidation(validationConfig);
 
+// Находим кнопки на странице
+
 // Слушатели событий для кнопок для открытия popups
-document.addEventListener("click", (event) => {
-  if (event.target.classList.contains("profile__edit-button")) {
-    popupEditProfileInstance.open();
-    const currentUserInfo = userInfo.getUserInfo();
-    popupFormInputName.value = currentUserInfo.name;
-    popupFormInputAbout.value = currentUserInfo.about;
-  } else if (event.target.classList.contains("profile__add-button")) {
-    popupAddCardInstance.open();
-  }
+editProfileButton.addEventListener("click", () => {
+  popupEditProfileInstance.open();
+  const currentUserInfo = userInfo.getUserInfo();
+  popupFormInputName.value = currentUserInfo.name;
+  popupFormInputAbout.value = currentUserInfo.about;
+});
+
+addCardButton.addEventListener("click", () => {
+  popupAddCardInstance.open();
 });
