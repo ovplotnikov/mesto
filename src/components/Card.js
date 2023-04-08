@@ -4,7 +4,7 @@ export default class Card {
         this._link = data.link; 
         this._templateSelector = templateSelector;
         this._elementImage = null;
-        this._likeButton = null;
+        this._buttonLike = null;
         this._handleCardClick = handleCardClick;
     }
 
@@ -30,8 +30,8 @@ export default class Card {
     }
 
     _setEventListeners() {
-        this._likeButton = this._element.querySelector('.elements__like-button');
-        this._likeButton.addEventListener('click', () => {
+        this._buttonLike = this._element.querySelector('.elements__like-button');
+        this._buttonLike.addEventListener('click', () => {
             this._handleLikeCard();
         });
 
@@ -45,11 +45,12 @@ export default class Card {
     }
 
     _handleLikeCard() {
-        this._likeButton = this._element.querySelector('.elements__like-button');
-        this._likeButton.classList.toggle('elements__like-button_active');
+        this._buttonLike.classList.toggle('elements__like-button_active');
     }
+    
 
     _handleDeleteCard() {
         this._element.remove();
+        this._element = null;
     }
 }

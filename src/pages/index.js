@@ -3,19 +3,20 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithImage from '../components/PopupWithImage.js';
-import UserInfo from '../components/UserInfo.js';
-import { validationConfig, initialElements } from "../utils/constants.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
+import {
+  validationConfig,
+  initialElements,
+  popupFormInputName,
+  popupFormInputAbout,
+} from "../utils/constants.js";
 
 // Создаем экземпляр класса UserInfo
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
-  aboutSelector: ".profile__about"
+  aboutSelector: ".profile__about",
 });
-
-// Переменные для popups
-const popupFormInputName = document.querySelector(".popup__input_value_name");
-const popupFormInputAbout = document.querySelector(".popup__input_value_about");
 
 // Функция для обработки card click
 function handleCardClick(name, link) {
@@ -33,7 +34,7 @@ function createCard(data, templateSelector) {
 }
 
 // Создаем экземпляр класса Section для рендеринга карточек
-const elementsSection = new Section(
+const cardsSection = new Section(
   {
     items: initialElements,
     renderer: (item) => {
@@ -45,13 +46,13 @@ const elementsSection = new Section(
 );
 
 // Вызываем метод renderItems для рендеринга исходных элементов.
-elementsSection.renderItems();
+cardsSection.renderItems();
 
 // Обработчики отправки формы
 function handleFormEditProfileSubmit(formData) {
   userInfo.setUserInfo({
     name: formData.name,
-    about: formData.about
+    about: formData.about,
   });
 }
 
@@ -64,12 +65,18 @@ function handleAddCardFormSubmit(formData) {
     },
     ".elements-template"
   );
-  elementsSection.addItem(element);
+  cardsSection.addItem(element);
 }
 
 // Создаем экземпляры класса PopupWithForm для каждого всплывающего окна.
-const popupEditProfileInstance = new PopupWithForm(".popup_type_edit-profile", handleFormEditProfileSubmit);
-const popupAddCardInstance = new PopupWithForm(".popup_type_add-card", handleAddCardFormSubmit);
+const popupEditProfileInstance = new PopupWithForm(
+  ".popup_type_edit-profile",
+  handleFormEditProfileSubmit
+);
+const popupAddCardInstance = new PopupWithForm(
+  ".popup_type_add-card",
+  handleAddCardFormSubmit
+);
 const popupImageInstance = new PopupWithImage(".popup_type_image");
 
 // Устанавливаем слушатели событий для экземпляров класса PopupWithForm.
@@ -85,7 +92,7 @@ function enableValidation(config) {
   formList.forEach((formElement) => {
     const formValidator = new FormValidator(config, formElement);
     formValidator.enableValidation();
-    validators[formElement.getAttribute("name")] = formValidator;
+    validators[formElement.name] = formValidator;
   });
 }
 

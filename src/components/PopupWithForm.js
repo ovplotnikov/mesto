@@ -1,4 +1,4 @@
-import Popup from './Popup.js';
+import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitCallback) {
@@ -30,4 +30,3 @@ export default class PopupWithForm extends Popup {
     this._form.reset();
   }
 }
-
