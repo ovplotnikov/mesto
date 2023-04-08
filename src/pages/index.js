@@ -13,6 +13,7 @@ import {
   editProfileButton,
   addCardButton,
 } from "../utils/constants.js";
+import "./index.css";
 
 // Создаем экземпляр класса UserInfo
 const userInfo = new UserInfo({

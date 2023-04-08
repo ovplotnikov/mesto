@@ -1,19 +1,18 @@
 {
-  "name": "yandex_praktikum",
-  "version": "0.0.1",
+  "name": "mesto",
+  "version": "1.0.0",
   "description": "Четвертый проект курса Яндекс.Практикум. Интерактивная страница, где можно создать свой профиль, выложить фотографию, поставить лайк.",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack serve"
   },
-  "author": "Oleg Plotnikov",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
-    "ajv": "^8.12.0",
-    "ajv-formats": "^2.1.1",
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
     "clean-webpack-plugin": "^4.0.0",
@@ -28,6 +27,5 @@
   },
   "dependencies": {
     "core-js": "^3.30.0"
-  },
-  "keywords": []
+  }
 }
