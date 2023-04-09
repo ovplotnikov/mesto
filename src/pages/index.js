@@ -12,6 +12,7 @@ import {
   popupFormInputAbout,
   editProfileButton,
   addCardButton,
+  addCardForm,
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -70,9 +71,6 @@ function handleAddCardFormSubmit(formData) {
     ".elements-template"
   );
   cardsSection.addItem(element);
-  const addCardForm = document
-    .querySelector(".popup_type_add-card")
-    .querySelector(validationConfig.formSelector);
   validators[addCardForm.name].toggleButtonState();
   popupAddCardInstance.close();
 }

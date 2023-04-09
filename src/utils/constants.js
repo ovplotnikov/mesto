@@ -10,6 +10,10 @@ export const editProfileButton = document.querySelector(
 );
 export const addCardButton = document.querySelector(".profile__add-button");
 
+export const addCardForm = document
+  .querySelector(".popup_type_add-card")
+  .querySelector(validationConfig.formSelector);
+
 export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
