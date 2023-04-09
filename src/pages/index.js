@@ -61,19 +61,6 @@ function handleFormEditProfileSubmit(formData) {
 }
 
 // Функция обработки отправки формы добавления карточки
-// function handleAddCardFormSubmit(formData) {
-//   const element = createCard(
-//     {
-//       name: formData.name,
-//       link: formData.link,
-//     },
-//     ".elements-template"
-//   );
-//   cardsSection.addItem(element);
-// }
-
-// Функция обработки отправки формы добавления карточки
-// Функция обработки отправки формы добавления карточки
 function handleAddCardFormSubmit(formData) {
   const element = createCard(
     {
