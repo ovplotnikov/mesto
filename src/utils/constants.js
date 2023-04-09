@@ -10,14 +10,6 @@ export const ButtonEditProfile = document.querySelector(
 );
 export const ButtonAddCard = document.querySelector(".profile__add-button");
 
-export const FormAddCard = document
-  .querySelector(".popup_type_add-card")
-  .querySelector(validationConfig.formSelector);
-
-export const FormEditProfile = document
-  .querySelector(".popup_type_edit-profile")
-  .querySelector(validationConfig.formSelector);
-
 export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -26,6 +18,14 @@ export const validationConfig = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
+
+export const FormAddCard = document
+  .querySelector(".popup_type_add-card")
+  .querySelector(validationConfig.formSelector);
+
+export const FormEditProfile = document
+  .querySelector(".popup_type_edit-profile")
+  .querySelector(validationConfig.formSelector);
 
 // Массив с первоначальными карточками
 export const initialElements = [
