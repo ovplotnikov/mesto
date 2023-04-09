@@ -10,9 +10,9 @@ import {
   initialElements,
   popupFormInputName,
   popupFormInputAbout,
-  editProfileButton,
-  addCardButton,
-  addCardForm,
+  ButtonEditProfile,
+  ButtonAddCard,
+  FormAddCard,
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -71,7 +71,7 @@ function handleAddCardFormSubmit(formData) {
     ".elements-template"
   );
   cardsSection.addItem(element);
-  validators[addCardForm.name].toggleButtonState();
+  validators[FormAddCard.name].toggleButtonState();
   popupAddCardInstance.close();
 }
 
@@ -108,13 +108,13 @@ enableValidation(validationConfig);
 // Находим кнопки на странице
 
 // Слушатели событий для кнопок для открытия popups
-editProfileButton.addEventListener("click", () => {
+ButtonEditProfile.addEventListener("click", () => {
   popupEditProfileInstance.open();
   const currentUserInfo = userInfo.getUserInfo();
   popupFormInputName.value = currentUserInfo.name;
   popupFormInputAbout.value = currentUserInfo.about;
 });
 
-addCardButton.addEventListener("click", () => {
+ButtonAddCard.addEventListener("click", () => {
   popupAddCardInstance.open();
 });
