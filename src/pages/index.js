@@ -1,3 +1,4 @@
+import "./index.css";
 // Импорты
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -14,7 +15,6 @@ import {
   ButtonAddCard,
   FormAddCard,
 } from "../utils/constants.js";
-// import "./index.css";
 
 // Создаем экземпляр класса UserInfo
 const userInfo = new UserInfo({
