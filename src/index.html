@@ -8,7 +8,7 @@
         content="Проект об интересных местах в России. Добавляйте свое интересное место и делитесь им со всеми">
     <meta name="keywords" content="Место, места, интересное место">
     <meta name="author" content="Олег Плотников">
-    <link rel="stylesheet" href="./pages/index.css">
+    <!-- <link rel="stylesheet" href="./pages/index.css"> -->
     <title>Mesto Russia</title>
 </head>
 
@@ -16,11 +16,11 @@
 <body class="body">
     <div class="page">
         <header class="header">
-            <img src="./images/logo.svg" alt="Логотип" class="header__logo">
+            <img src="<%=require('./images/logo.svg')%>" alt=" Логотип" class="header__logo">
         </header>
         <main class="content">
             <section class="profile">
-                <img src="./images/Cousteau.jpg" alt="Аватар" class="profile__avatar-image">
+                <img src="<%=require('./images/Cousteau.jpg')%>" alt="Аватар" class="profile__avatar-image">
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
                     <button class="profile__edit-button button-opacity-hover" type="button"
@@ -90,7 +90,7 @@
             </div>
         </li>
     </template>
-    <script type='module' src="./pages/index.js"></script>
+    <!-- <script type='module' src="./pages/index.js"></script> -->
 
 </body>
 
