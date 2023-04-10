@@ -11,9 +11,9 @@ import {
   initialElements,
   popupFormInputName,
   popupFormInputAbout,
-  ButtonEditProfile,
-  ButtonAddCard,
-  FormAddCard,
+  buttonEditProfile,
+  buttonAddCard,
+  formAddCard,
 } from "../utils/constants.js";
 
 // Создаем экземпляр класса UserInfo
@@ -71,8 +71,8 @@ function handleAddCardFormSubmit(formData) {
     ".elements-template"
   );
   cardsSection.addItem(element);
-  validators[FormAddCard.name].toggleButtonState();
   popupAddCardInstance.close();
+  validators[formAddCard.name].toggleButtonState();
 }
 
 // Создаем экземпляры класса PopupWithForm для каждого всплывающего окна.
@@ -108,13 +108,13 @@ enableValidation(validationConfig);
 // Находим кнопки на странице
 
 // Слушатели событий для кнопок для открытия popups
-ButtonEditProfile.addEventListener("click", () => {
+buttonEditProfile.addEventListener("click", () => {
   popupEditProfileInstance.open();
   const currentUserInfo = userInfo.getUserInfo();
   popupFormInputName.value = currentUserInfo.name;
   popupFormInputAbout.value = currentUserInfo.about;
 });
 
-ButtonAddCard.addEventListener("click", () => {
+buttonAddCard.addEventListener("click", () => {
   popupAddCardInstance.open();
 });
