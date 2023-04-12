@@ -6,6 +6,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api";
 import {
   validationConfig,
   initialElements,
@@ -14,6 +15,7 @@ import {
   buttonEditProfile,
   buttonAddCard,
   formAddCard,
+  cohortId,
 } from "../utils/constants.js";
 
 // Создаем экземпляр класса UserInfo
@@ -37,20 +39,39 @@ function createCard(data, templateSelector) {
   return cardElement;
 }
 
-// Создаем экземпляр класса Section для рендеринга карточек
-const cardsSection = new Section(
-  {
-    items: initialElements,
-    renderer: (item) => {
-      const cardElement = createCard(item, ".elements-template");
-      return cardElement;
-    },
-  },
-  ".elements__list"
-);
+// const api = new Api({
+//   baseUrl: "https://mesto.nomoreparties.co/v1",
+//   cohortId: cohortId,
+//   headers: {
+//     authorization: "e6623c64-174b-4d47-84f0-e5f6c8e0ba57", // Замените на ваш токен
+//     "Content-Type": "application/json",
+//   },
+// });
 
-// Вызываем метод renderItems для рендеринга исходных элементов.
-cardsSection.renderItems();
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-63",
+  headers: {
+    authorization: "e6623c64-174b-4d47-84f0-e5f6c8e0ba57",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getInitialCards().then((initialCards) => {
+  // Создаем экземпляр класса Section для рендеринга карточек
+  const cardsSection = new Section(
+    {
+      items: initialCards,
+      renderer: (item) => {
+        const cardElement = createCard(item, ".elements-template");
+        return cardElement;
+      },
+    },
+    ".elements__list"
+  );
+
+  // Вызываем метод renderItems для рендеринга исходных элементов.
+  cardsSection.renderItems();
+});
 
 // Обработчики отправки формы
 function handleFormEditProfileSubmit(formData) {

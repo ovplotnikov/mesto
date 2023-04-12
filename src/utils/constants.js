@@ -10,6 +10,8 @@ export const buttonEditProfile = document.querySelector(
 );
 export const buttonAddCard = document.querySelector(".profile__add-button");
 
+export const cohortId = "cohort-63";
+
 export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
