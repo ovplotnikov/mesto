@@ -17,6 +17,7 @@ import {
   formAddCard,
   cohortId,
 } from "../utils/constants.js";
+let cardsSection = null;
 
 // Создаем экземпляр класса UserInfo
 const userInfo = new UserInfo({
@@ -58,7 +59,7 @@ function createCard(data, templateSelector) {
 
 api.getInitialCards().then((initialCards) => {
   // Создаем экземпляр класса Section для рендеринга карточек
-  const cardsSection = new Section(
+  cardsSection = new Section(
     {
       items: initialCards,
       renderer: (item) => {
@@ -92,16 +93,17 @@ function handleFormEditProfileSubmit(formData) {
 
 // Функция обработки отправки формы добавления карточки
 function handleAddCardFormSubmit(formData) {
-  const element = createCard(
-    {
-      name: formData.name,
-      link: formData.link,
-    },
-    ".elements-template"
-  );
-  cardsSection.addItem(element);
-  popupAddCardInstance.close();
-  validators[formAddCard.name].toggleButtonState();
+  api
+    .addCard(formData.name, formData.link)
+    .then((cardData) => {
+      const element = createCard(cardData, ".elements-template");
+      cardsSection.addItem(element);
+      popupAddCardInstance.close();
+      validators[formAddCard.name].toggleButtonState();
+    })
+    .catch((err) => {
+      console.error(`Ошибка при добавлении карточки: ${err}`);
+    });
 }
 
 // Создаем экземпляры класса PopupWithForm для каждого всплывающего окна.

@@ -45,15 +45,19 @@ export default class Api {
     }).then(this._getResponseData);
   }
 
-  addCard(data) {
+  addCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        link: data.link,
+        name: name,
+        link: link,
       }),
-    }).then(this._getResponseData);
+    })
+      .then(this._getResponseData)
+      .catch((err) => {
+        console.error(`Ошибка при добавлении карточки: ${err}`);
+      });
   }
 
   deleteCard(id) {
