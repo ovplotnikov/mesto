@@ -75,11 +75,19 @@ api.getInitialCards().then((initialCards) => {
 
 // Обработчики отправки формы
 function handleFormEditProfileSubmit(formData) {
-  userInfo.setUserInfo({
-    name: formData.name,
-    about: formData.about,
-  });
-  popupEditProfileInstance.close();
+  api
+    .editUserInfo(formData.name, formData.about)
+    .then((userData) => {
+      userInfo.setUserInfo({
+        name: userData.name,
+        about: userData.about,
+        avatar: userData.avatar,
+      });
+      popupEditProfileInstance.close();
+    })
+    .catch((err) => {
+      console.error(`Ошибка при обновлении профиля: ${err}`);
+    });
 }
 
 // Функция обработки отправки формы добавления карточки
