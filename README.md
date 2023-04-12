@@ -10,7 +10,7 @@
 - JavaScript для интерактивности
 - Работа с формами
 - ООП, ES6 Modules
-  Ссылка на проект: https://ovplotnikov.github.io/
+  Ссылка на проект: https://ovplotnikov.github.io/mesto/
 
 Планы по доработке:
 
