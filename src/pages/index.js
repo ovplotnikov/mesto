@@ -22,6 +22,23 @@ import {
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
   aboutSelector: ".profile__about",
+  avatarSelector: ".profile__avatar-image",
+});
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-63",
+  headers: {
+    authorization: "e6623c64-174b-4d47-84f0-e5f6c8e0ba57",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getUserInfo().then((userData) => {
+  userInfo.setUserInfo({
+    name: userData.name,
+    about: userData.about,
+    avatar: userData.avatar,
+  });
 });
 
 // Функция для обработки card click
@@ -38,23 +55,6 @@ function createCard(data, templateSelector) {
   const cardElement = card.generateCard();
   return cardElement;
 }
-
-// const api = new Api({
-//   baseUrl: "https://mesto.nomoreparties.co/v1",
-//   cohortId: cohortId,
-//   headers: {
-//     authorization: "e6623c64-174b-4d47-84f0-e5f6c8e0ba57", // Замените на ваш токен
-//     "Content-Type": "application/json",
-//   },
-// });
-
-const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-63",
-  headers: {
-    authorization: "e6623c64-174b-4d47-84f0-e5f6c8e0ba57",
-    "Content-Type": "application/json",
-  },
-});
 
 api.getInitialCards().then((initialCards) => {
   // Создаем экземпляр класса Section для рендеринга карточек
