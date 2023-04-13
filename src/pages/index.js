@@ -79,8 +79,9 @@ api.getInitialCards().then((initialCards) => {
 
 // Обработчики отправки формы
 function handleFormEditProfileSubmit(formData) {
+  const userData = { name: formData.name, about: formData.about };
   api
-    .editUserInfo(formData.name, formData.about)
+    .updateUserInfo(userData)
     .then((userData) => {
       userInfo.setUserInfo({
         name: userData.name,
