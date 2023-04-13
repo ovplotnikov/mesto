@@ -15,8 +15,10 @@
 .elements__delete-button{background:url(images/Trash.fc080c667b103a4d5064.svg);background-repeat:no-repeat;border:none;box-sizing:border-box;cursor:pointer;height:19px;outline:none;position:absolute;right:20px;top:20px;transition:all .3s ease;width:18px;z-index:1}
 .elements__image{border-radius:10px 10px 0 0;cursor:pointer;height:282px;min-height:282px;min-width:282px;width:282px}
 .elements__info{align-items:center;background-color:#fff;border-radius:10px;display:flex;flex-direction:row;justify-content:space-between;max-width:282px}
-.elements__like-button{background:url(images/heart.87ed371465c7a6a1cd01.svg);background-color:transparent;background-repeat:no-repeat;border:none;box-sizing:border-box;cursor:pointer;height:19px;margin:0;opacity:100%;padding:22px 42px 0 0;transition:opacity .3s ease;width:22px}.elements__like-button:hover{opacity:50%}
+.elements__like-container{align-items:center;display:flex;flex-direction:column;padding:0 21px 0 0}
+.elements__like-button{background:url(images/heart.87ed371465c7a6a1cd01.svg);background-color:transparent;background-repeat:no-repeat;border:none;box-sizing:border-box;cursor:pointer;height:19px;margin:0;opacity:100%;padding:0;transition:opacity .3s ease;width:22px}.elements__like-button:hover{opacity:50%}
 .elements__like-button_active{background:url(images/heart_active.fe17a515669479b1e649.svg);background-repeat:no-repeat}
+.elements__like-counter{color:#000;font-size:13px;font-style:normal;font-weight:400;line-height:16px;margin:3px 0 0;padding:0;text-align:center;width:10px}
 .elements__list{-moz-column-gap:17px;column-gap:17px;display:grid;grid-auto-rows:auto;grid-template-columns:repeat(auto-fit,minmax(282px,1fr));justify-items:center;list-style:none;margin:0 auto;padding:0;row-gap:21px}@media screen and (max-width:595px){.elements__list{grid-template-columns:repeat(1,minmax(282px,1fr))}}
 .elements__title{color:#000;font-size:24px;font-style:normal;font-weight:900;line-height:29px;margin:20px 0 26px 21px;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}
 .elements__item{background-color:#fff;border-radius:10px;max-width:282px;position:relative}
