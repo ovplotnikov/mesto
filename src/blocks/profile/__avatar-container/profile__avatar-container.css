@@ -1,0 +1,8 @@
+.profile__avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.profile__avatar-container:hover {
+    opacity: 1;
+}

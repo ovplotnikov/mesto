@@ -20,7 +20,13 @@
         </header>
         <main class="content">
             <section class="profile">
-                <img src="<%=require('./images/Cousteau.jpg')%>" alt="Аватар" class="profile__avatar-image">
+                <div class="profile__avatar-container">
+                    <img src="<%=require('./images/Cousteau.jpg')%>" alt="Аватар" class="profile__avatar-image">
+                    <div class="profile__avatar-overlay">
+                        <img src="<%=require('./images/pencil.svg')%>" alt="Редактировать аватар"
+                            class="profile__avatar-edit-icon">
+                    </div>
+                </div>
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
                     <button class="profile__edit-button button-opacity-hover" type="button"
@@ -77,6 +83,23 @@
                 <form class="popup__form" name="confirm_form" id="place_confirm" novalidate>
                     <h2 class="popup__title">Вы уверены?</h2>
                     <button class="popup__save-button" type="submit">Да</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup" id="popup_avatar">
+            <div class="popup__container">
+                <button class="popup__close-button button-opacity-hover" type="button"></button>
+                <form class="popup__form" name="place_form" id="avatar_form" novalidate>
+                    <h2 class="popup__title">Обновить аватар</h2>
+                    <fieldset class="form">
+                        <label class="form__input-label">
+                            <input type="url" class="form__input" placeholder="Ссылка на аватар" id="avatar"
+                                name="avatar_link" required>
+                            <span class="popup__error popup__input-error link-input-error"></span>
+                        </label>
+                    </fieldset>
+                    <button class="popup__save-button popup__save-button_disabled" type="submit"
+                        disabled>Сохранить</button>
                 </form>
             </div>
         </div>
