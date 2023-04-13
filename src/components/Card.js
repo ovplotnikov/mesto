@@ -32,6 +32,16 @@ export default class Card {
     this._setLikesCount(this._likes.length);
     this._setEventListeners();
 
+    // Показываем или скрываем иконку удаления в зависимости от владельца карточки
+    const deleteButton = this._element.querySelector(
+      ".elements__delete-button"
+    );
+    if (this._ownerId === this._userId) {
+      deleteButton.style.display = "block";
+    } else {
+      deleteButton.style.display = "none";
+    }
+
     return this._element;
   }
 
