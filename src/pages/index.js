@@ -99,7 +99,7 @@ function handleAddCardFormSubmit(formData) {
   api
     .addCard(formData.name, formData.link)
     .then((cardData) => {
-      const element = createCard(cardData, ".elements-template");
+      const element = createCard(cardData, ".elements-template", userId);
       cardsSection.addItem(element);
       popupAddCardInstance.close();
       validators[formAddCard.name].toggleButtonState();
