@@ -34,7 +34,10 @@ const api = new Api({
   },
 });
 
+let userId = null;
+
 api.getUserInfo().then((userData) => {
+  userId = userData._id;
   userInfo.setUserInfo({
     name: userData.name,
     about: userData.about,
@@ -51,8 +54,8 @@ function handleCardClick(name, link) {
 }
 
 // Функция создания карточки
-function createCard(data, templateSelector) {
-  const card = new Card(data, templateSelector, handleCardClick, api);
+function createCard(data, templateSelector, userId) {
+  const card = new Card(data, templateSelector, handleCardClick, api, userId);
   const cardElement = card.generateCard();
   return cardElement;
 }
@@ -63,7 +66,7 @@ api.getInitialCards().then((initialCards) => {
     {
       items: initialCards,
       renderer: (item) => {
-        const cardElement = createCard(item, ".elements-template");
+        const cardElement = createCard(item, ".elements-template", userId);
         return cardElement;
       },
     },

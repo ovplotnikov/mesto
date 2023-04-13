@@ -1,14 +1,16 @@
 export default class Card {
-  constructor(data, templateSelector, handleCardClick, api) {
+  constructor(data, templateSelector, handleCardClick, api, userId) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
-    this._id = data._id;
+    this._ownerId = data.owner._id;
+    this._cardId = data._id;
     this._templateSelector = templateSelector;
     this._elementImage = null;
     this._buttonLike = null;
     this._handleCardClick = handleCardClick;
     this._api = api;
+    this._userId = userId;
   }
 
   _getTemplate() {
@@ -28,6 +30,11 @@ export default class Card {
     this._elementImage.alt = this._name;
     this._likeCounter = this._element.querySelector(".elements__like-counter");
     this._setLikesCount(this._likes.length);
+    this._buttonLike = this._element.querySelector(".elements__like-button");
+    const isLikedByUser = this._likes.some((like) => like._id === this._userId);
+    if (isLikedByUser) {
+      this._buttonLike.classList.add("elements__like-button_active");
+    }
     this._setEventListeners();
 
     return this._element;
@@ -61,7 +68,7 @@ export default class Card {
     );
 
     this._api
-      .changeLikeCardStatus(this._id, !isLiked)
+      .changeLikeCardStatus(this._cardId, !isLiked)
       .then((cardData) => {
         this._buttonLike.classList.toggle("elements__like-button_active");
         this._setLikesCount(cardData.likes.length);
