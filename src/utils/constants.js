@@ -14,7 +14,7 @@ export const buttonEditAvatar = document.querySelector(
   ".profile__avatar-overlay"
 );
 
-export const cohortId = "cohort-63";
+export const buttonSave = document.querySelectorAll(".popup__save-button");
 
 export const validationConfig = {
   formSelector: ".popup__form",

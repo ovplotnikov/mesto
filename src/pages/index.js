@@ -15,7 +15,7 @@ import {
   buttonEditProfile,
   buttonAddCard,
   formAddCard,
-  formEditProfile,
+  buttonSave,
   formChangeAvatar,
   cohortId,
 } from "../utils/constants.js";
@@ -115,7 +115,7 @@ function handleFormEditProfileSubmit(formData) {
   const defaultButtonText = saveButton.dataset.defaultText;
 
   // Изменяем текст кнопки на «Сохранение...»
-  saveButton.textContent = "Сохранение...";
+  buttonSave.textContent = "Сохранение...";
 
   api
     .updateUserInfo(userData)
@@ -132,13 +132,13 @@ function handleFormEditProfileSubmit(formData) {
     })
     .finally(() => {
       // Восстанавливаем исходный текст кнопки
-      saveButton.textContent = defaultButtonText;
+      buttonSave.textContent = defaultButtonText;
     });
 }
 
 // Функция обработки отправки формы добавления карточки
 function handleAddCardFormSubmit(formData) {
-  buttonAddCard.textContent = "Сохранение...";
+  buttonSave.textContent = "Сохранение...";
   api
     .addCard(formData.name, formData.link)
     .then((cardData) => {
@@ -152,7 +152,7 @@ function handleAddCardFormSubmit(formData) {
     })
     .finally(() => {
       // Восстанавливаем исходный текст кнопки
-      buttonAddCard.textContent = "Сохранить";
+      buttonSave.textContent = "Сохранить";
     });
 }
 
