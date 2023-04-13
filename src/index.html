@@ -86,18 +86,14 @@
                 </form>
             </div>
         </div>
-        <div class="popup" id="popup_avatar">
+        <div class="popup popup_type_change-avatar" id="popup_avatar">
             <div class="popup__container">
                 <button class="popup__close-button button-opacity-hover" type="button"></button>
-                <form class="popup__form" name="place_form" id="avatar_form" novalidate>
+                <form class="popup__form" name="change-avatar" id="popup__form_type_change-avatar" novalidate>
                     <h2 class="popup__title">Обновить аватар</h2>
-                    <fieldset class="form">
-                        <label class="form__input-label">
-                            <input type="url" class="form__input" placeholder="Ссылка на аватар" id="avatar"
-                                name="avatar_link" required>
-                            <span class="popup__error popup__input-error link-input-error"></span>
-                        </label>
-                    </fieldset>
+                    <input type="url" name="link" class="popup__input popup__input_value_link"
+                        placeholder="Ссылка на картинку" required id="link-input">
+                    <span class="popup__error popup__input-error link-input-error" id="link-input-error"></span>
                     <button class="popup__save-button popup__save-button_disabled" type="submit"
                         disabled>Сохранить</button>
                 </form>

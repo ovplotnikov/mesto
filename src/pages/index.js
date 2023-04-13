@@ -45,6 +45,32 @@ api.getUserInfo().then((userData) => {
   });
 });
 
+// Функция обработки отправки формы смены аватара
+function handleFormChangeAvatarSubmit(formData) {
+  api
+    .updateAvatar(formData.avatar_link)
+    .then((userData) => {
+      userInfo.setUserInfo({
+        name: userData.name,
+        about: userData.about,
+        avatar: userData.avatar,
+      });
+      popupChangeAvatarInstance.close();
+    })
+    .catch((err) => {
+      console.error(`Ошибка при смене аватара: ${err}`);
+    });
+}
+
+// Создаем экземпляр класса PopupWithForm для смены аватара.
+const popupChangeAvatarInstance = new PopupWithForm(
+  ".popup_type_change-avatar",
+  handleFormChangeAvatarSubmit
+);
+
+// Устанавливаем слушатели событий для экземпляра класса PopupWithForm (смены аватара).
+popupChangeAvatarInstance.setEventListeners();
+
 // Функция для обработки card click
 function handleCardClick(name, link) {
   popupImageInstance.open({
