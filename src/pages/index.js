@@ -9,12 +9,14 @@ import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api";
 import {
   validationConfig,
-  initialElements,
+  buttonEditAvatar,
   popupFormInputName,
   popupFormInputAbout,
   buttonEditProfile,
   buttonAddCard,
   formAddCard,
+  formEditProfile,
+  formChangeAvatar,
   cohortId,
 } from "../utils/constants.js";
 let cardsSection = null;
@@ -47,6 +49,7 @@ api.getUserInfo().then((userData) => {
 
 // Функция обработки отправки формы смены аватара
 function handleFormChangeAvatarSubmit(formData) {
+  console.log("URL-адрес аватара:", formData.link);
   api
     .updateAvatar(formData.avatar_link)
     .then((userData) => {
@@ -55,7 +58,7 @@ function handleFormChangeAvatarSubmit(formData) {
         about: userData.about,
         avatar: userData.avatar,
       });
-      popupChangeAvatarInstance.close();
+      popupChangeAvatarInstance.close(); // Закрываем попап после успешного обновления аватара
     })
     .catch((err) => {
       console.error(`Ошибка при смене аватара: ${err}`);
@@ -115,6 +118,7 @@ function handleFormEditProfileSubmit(formData) {
         avatar: userData.avatar,
       });
       popupEditProfileInstance.close();
+      validators[formEditProfile.name].toggleButtonState();
     })
     .catch((err) => {
       console.error(`Ошибка при обновлении профиля: ${err}`);
@@ -178,4 +182,9 @@ buttonEditProfile.addEventListener("click", () => {
 
 buttonAddCard.addEventListener("click", () => {
   popupAddCardInstance.open();
+});
+
+buttonEditAvatar.addEventListener("click", () => {
+  validators[formChangeAvatar.name].toggleButtonState();
+  popupChangeAvatarInstance.open();
 });
