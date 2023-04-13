@@ -109,6 +109,14 @@ api.getInitialCards().then((initialCards) => {
 // Обработчики отправки формы
 function handleFormEditProfileSubmit(formData) {
   const userData = { name: formData.name, about: formData.about };
+  const saveButton = popupEditProfileInstance
+    .getPopupElement()
+    .querySelector(".popup__save-button");
+  const defaultButtonText = saveButton.dataset.defaultText;
+
+  // Изменяем текст кнопки на «Сохранение...»
+  saveButton.textContent = "Сохранение...";
+
   api
     .updateUserInfo(userData)
     .then((userData) => {
@@ -118,15 +126,19 @@ function handleFormEditProfileSubmit(formData) {
         avatar: userData.avatar,
       });
       popupEditProfileInstance.close();
-      validators[formEditProfile.name].toggleButtonState();
     })
     .catch((err) => {
       console.error(`Ошибка при обновлении профиля: ${err}`);
+    })
+    .finally(() => {
+      // Восстанавливаем исходный текст кнопки
+      saveButton.textContent = defaultButtonText;
     });
 }
 
 // Функция обработки отправки формы добавления карточки
 function handleAddCardFormSubmit(formData) {
+  buttonAddCard.textContent = "Сохранение...";
   api
     .addCard(formData.name, formData.link)
     .then((cardData) => {
@@ -137,6 +149,10 @@ function handleAddCardFormSubmit(formData) {
     })
     .catch((err) => {
       console.error(`Ошибка при добавлении карточки: ${err}`);
+    })
+    .finally(() => {
+      // Восстанавливаем исходный текст кнопки
+      buttonAddCard.textContent = "Сохранить";
     });
 }
 
