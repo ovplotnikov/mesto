@@ -23,7 +23,7 @@ export default class Api {
     }).then(this._getResponseData);
   }
 
-  setUserInfo(data) {
+  updateUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -34,52 +34,37 @@ export default class Api {
     }).then(this._getResponseData);
   }
 
-  editUserInfo(name, about) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({
-        name,
-        about,
-      }),
-    }).then(this._getResponseData);
-  }
-
   addCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        link: link,
+        name,
+        link,
       }),
-    })
-      .then(this._getResponseData)
-      .catch((err) => {
-        console.error(`Ошибка при добавлении карточки: ${err}`);
-      });
+    }).then(this._getResponseData);
   }
 
-  deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._getResponseData);
   }
 
-  changeLikeCardStatus(id, isLiked) {
-    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+  changeLikeCardStatus(cardId, isLiked) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: isLiked ? "PUT" : "DELETE",
       headers: this._headers,
     }).then(this._getResponseData);
   }
 
-  changeAvatar(data) {
+  updateAvatar(avatarUrl) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data.avatar,
+        avatar: avatarUrl,
       }),
     }).then(this._getResponseData);
   }

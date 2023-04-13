@@ -6,8 +6,6 @@ export default class Card {
     this._ownerId = data.owner._id;
     this._cardId = data._id;
     this._templateSelector = templateSelector;
-    this._elementImage = null;
-    this._buttonLike = null;
     this._handleCardClick = handleCardClick;
     this._api = api;
     this._userId = userId;
@@ -25,14 +23,13 @@ export default class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._element.querySelector(".elements__title").textContent = this._name;
-    this._elementImage = this._element.querySelector(".elements__image");
-    this._elementImage.src = this._link;
-    this._elementImage.alt = this._name;
-    this._likeCounter = this._element.querySelector(".elements__like-counter");
-    this._setLikesCount(this._likes.length);
+    const elementImage = this._element.querySelector(".elements__image");
+    elementImage.src = this._link;
+    elementImage.alt = this._name;
+    const likeCounter = this._element.querySelector(".elements__like-counter");
+    this._setLikesCount(likeCounter, this._likes.length);
     this._setEventListeners();
 
-    // Показываем или скрываем иконку удаления в зависимости от владельца карточки
     const deleteButton = this._element.querySelector(
       ".elements__delete-button"
     );
@@ -45,15 +42,15 @@ export default class Card {
     return this._element;
   }
 
-  _setLikesCount(count) {
-    this._likeCounter.textContent = count;
-    this._likeCounter.dataset.likes = count;
+  _setLikesCount(likeCounter, count) {
+    likeCounter.textContent = count;
+    likeCounter.dataset.likes = count;
   }
 
   _setEventListeners() {
-    this._buttonLike = this._element.querySelector(".elements__like-button");
-    this._buttonLike.addEventListener("click", () => {
-      this._handleLikeCard();
+    const buttonLike = this._element.querySelector(".elements__like-button");
+    buttonLike.addEventListener("click", () => {
+      this._handleLikeCard(buttonLike);
     });
 
     this._element
@@ -63,21 +60,25 @@ export default class Card {
         this._handleDeleteCard();
       });
 
-    this._elementImage.addEventListener("click", () => {
+    const elementImage = this._element.querySelector(".elements__image");
+    elementImage.addEventListener("click", () => {
       this._handleCardClick(this._name, this._link);
     });
   }
 
-  _handleLikeCard() {
-    const isLiked = this._buttonLike.classList.contains(
+  _handleLikeCard(buttonLike) {
+    const isLiked = buttonLike.classList.contains(
       "elements__like-button_active"
     );
 
     this._api
       .changeLikeCardStatus(this._cardId, !isLiked)
       .then((cardData) => {
-        this._buttonLike.classList.toggle("elements__like-button_active");
-        this._setLikesCount(cardData.likes.length);
+        buttonLike.classList.toggle("elements__like-button_active");
+        const likeCounter = this._element.querySelector(
+          ".elements__like-counter"
+        );
+        this._setLikesCount(likeCounter, cardData.likes.length);
       })
       .catch((err) =>
         console.error(`Ошибка при изменении статуса лайка карточки: ${err}`)
@@ -88,7 +89,6 @@ export default class Card {
     const confirmPopup = document.querySelector("#popup_confirm");
     confirmPopup.classList.add("popup_opened");
 
-    // Добавьте обработчик события на кнопку "Да"
     const confirmButton = confirmPopup.querySelector(".popup__save-button");
     confirmButton.addEventListener("click", (event) => {
       event.preventDefault();
@@ -96,7 +96,6 @@ export default class Card {
       confirmPopup.classList.remove("popup_opened");
     });
 
-    // Добавьте обработчик события на кнопку закрытия попапа
     const closeButton = confirmPopup.querySelector(".popup__close-button");
     closeButton.addEventListener("click", () => {
       confirmPopup.classList.remove("popup_opened");
@@ -104,7 +103,14 @@ export default class Card {
   }
 
   _deleteCard() {
-    this._element.remove();
-    this._element = null;
+    this._api
+      .deleteCard(this._cardId)
+      .then(() => {
+        this._element.remove();
+        this._element = null;
+      })
+      .catch((err) => {
+        console.error(`Ошибка при удалении карточки: ${err}`);
+      });
   }
 }
