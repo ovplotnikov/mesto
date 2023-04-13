@@ -52,7 +52,7 @@ function handleCardClick(name, link) {
 
 // Функция создания карточки
 function createCard(data, templateSelector) {
-  const card = new Card(data, templateSelector, handleCardClick);
+  const card = new Card(data, templateSelector, handleCardClick, api);
   const cardElement = card.generateCard();
   return cardElement;
 }

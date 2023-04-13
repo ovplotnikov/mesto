@@ -1,12 +1,14 @@
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick, api) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._id = data._id;
     this._templateSelector = templateSelector;
     this._elementImage = null;
     this._buttonLike = null;
     this._handleCardClick = handleCardClick;
+    this._api = api;
   }
 
   _getTemplate() {
@@ -54,7 +56,19 @@ export default class Card {
   }
 
   _handleLikeCard() {
-    this._buttonLike.classList.toggle("elements__like-button_active");
+    const isLiked = this._buttonLike.classList.contains(
+      "elements__like-button_active"
+    );
+
+    this._api
+      .changeLikeCardStatus(this._id, !isLiked)
+      .then((cardData) => {
+        this._buttonLike.classList.toggle("elements__like-button_active");
+        this._setLikesCount(cardData.likes.length);
+      })
+      .catch((err) =>
+        console.error(`Ошибка при изменении статуса лайка карточки: ${err}`)
+      );
   }
 
   _handleDeleteCard() {
