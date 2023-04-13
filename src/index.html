@@ -71,6 +71,15 @@
                 </form>
             </div>
         </div>
+        <div class="popup popup_type_confirm" id="popup_confirm">
+            <div class="popup__container">
+                <button class="popup__close-button button-opacity-hover" type="button"></button>
+                <form class="popup__form" name="confirm_form" id="place_confirm" novalidate>
+                    <h2 class="popup__title">Вы уверены?</h2>
+                    <button class="popup__save-button" type="submit">Да</button>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="popup popup_type_image">
         <div class="popup__container popup__container_type_image">
@@ -79,6 +88,7 @@
             <p class="popup__image-title"></p>
         </div>
     </div>
+
     <template class="elements-template">
         <li class="elements__item">
             <button class="elements__delete-button button-opacity-hover" type="button"
