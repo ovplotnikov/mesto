@@ -30,11 +30,6 @@ export default class Card {
     this._elementImage.alt = this._name;
     this._likeCounter = this._element.querySelector(".elements__like-counter");
     this._setLikesCount(this._likes.length);
-    this._buttonLike = this._element.querySelector(".elements__like-button");
-    const isLikedByUser = this._likes.some((like) => like._id === this._userId);
-    if (isLikedByUser) {
-      this._buttonLike.classList.add("elements__like-button_active");
-    }
     this._setEventListeners();
 
     return this._element;
@@ -53,7 +48,8 @@ export default class Card {
 
     this._element
       .querySelector(".elements__delete-button")
-      .addEventListener("click", () => {
+      .addEventListener("click", (event) => {
+        event.stopPropagation();
         this._handleDeleteCard();
       });
 
@@ -79,6 +75,25 @@ export default class Card {
   }
 
   _handleDeleteCard() {
+    const confirmPopup = document.querySelector("#popup_confirm");
+    confirmPopup.classList.add("popup_opened");
+
+    // Добавьте обработчик события на кнопку "Да"
+    const confirmButton = confirmPopup.querySelector(".popup__save-button");
+    confirmButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      this._deleteCard();
+      confirmPopup.classList.remove("popup_opened");
+    });
+
+    // Добавьте обработчик события на кнопку закрытия попапа
+    const closeButton = confirmPopup.querySelector(".popup__close-button");
+    closeButton.addEventListener("click", () => {
+      confirmPopup.classList.remove("popup_opened");
+    });
+  }
+
+  _deleteCard() {
     this._element.remove();
     this._element = null;
   }
