@@ -51,7 +51,7 @@ api.getUserInfo().then((userData) => {
 function handleFormChangeAvatarSubmit(formData) {
   console.log("URL-адрес аватара:", formData.link);
   api
-    .updateAvatar(formData.avatar_link)
+    .updateAvatar(formData.link)
     .then((userData) => {
       userInfo.setUserInfo({
         name: userData.name,
