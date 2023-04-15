@@ -109,13 +109,12 @@ api.getInitialCards().then((initialCards) => {
 // Обработчики отправки формы
 function handleFormEditProfileSubmit(formData) {
   const userData = { name: formData.name, about: formData.about };
-  const saveButton = popupEditProfileInstance
+  const defaultButtonText = popupEditProfileInstance
     .getPopupElement()
-    .querySelector(".popup__save-button");
-  const defaultButtonText = saveButton.dataset.defaultText;
+    .querySelector(".popup__save-button").textContent;
 
   // Изменяем текст кнопки на «Сохранение...»
-  buttonSave.textContent = "Сохранение...";
+  popupEditProfileInstance.setButtonText("Сохранение...");
 
   api
     .updateUserInfo(userData)
@@ -132,13 +131,17 @@ function handleFormEditProfileSubmit(formData) {
     })
     .finally(() => {
       // Восстанавливаем исходный текст кнопки
-      buttonSave.textContent = defaultButtonText;
+      popupEditProfileInstance.setButtonText(defaultButtonText);
     });
 }
 
 // Функция обработки отправки формы добавления карточки
 function handleAddCardFormSubmit(formData) {
-  buttonSave.textContent = "Сохранение...";
+  const defaultButtonText = popupAddCardInstance
+    .getPopupElement()
+    .querySelector(".popup__save-button").textContent;
+
+  popupAddCardInstance.setButtonText("Сохранение...");
   api
     .addCard(formData.name, formData.link)
     .then((cardData) => {
@@ -152,7 +155,7 @@ function handleAddCardFormSubmit(formData) {
     })
     .finally(() => {
       // Восстанавливаем исходный текст кнопки
-      buttonSave.textContent = "Сохранить";
+      popupAddCardInstance.setButtonText(defaultButtonText);
     });
 }
 
