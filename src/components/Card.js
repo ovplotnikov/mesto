@@ -104,19 +104,37 @@ export default class Card {
     const handleConfirm = (event) => {
       event.preventDefault();
       this._deleteCard();
-      confirmPopup.classList.remove("popup_opened");
-      confirmButton.removeEventListener("click", handleConfirm);
-      closeButton.removeEventListener("click", handleClose);
+      closePopup();
     };
 
     const handleClose = () => {
+      closePopup();
+    };
+
+    const handleOverlayClose = (event) => {
+      if (event.target.classList.contains("popup_opened")) {
+        closePopup();
+      }
+    };
+
+    const handleEscClose = (event) => {
+      if (event.key === "Escape") {
+        closePopup();
+      }
+    };
+
+    const closePopup = () => {
       confirmPopup.classList.remove("popup_opened");
       confirmButton.removeEventListener("click", handleConfirm);
       closeButton.removeEventListener("click", handleClose);
+      confirmPopup.removeEventListener("click", handleOverlayClose);
+      document.removeEventListener("keydown", handleEscClose);
     };
 
     confirmButton.addEventListener("click", handleConfirm);
     closeButton.addEventListener("click", handleClose);
+    confirmPopup.addEventListener("click", handleOverlayClose);
+    document.addEventListener("keydown", handleEscClose);
   }
 
   _deleteCard() {
