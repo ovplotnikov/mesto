@@ -39,6 +39,12 @@ export default class Card {
       deleteButton.style.display = "none";
     }
 
+    // Устанавливаем состояние лайка из localStorage
+    const buttonLike = this._element.querySelector(".elements__like-button");
+    if (localStorage.getItem(`liked-${this._cardId}`) === "true") {
+      buttonLike.classList.add("elements__like-button_active");
+    }
+
     return this._element;
   }
 
@@ -79,6 +85,12 @@ export default class Card {
           ".elements__like-counter"
         );
         this._setLikesCount(likeCounter, cardData.likes.length);
+
+        // Сохраняем состояние лайка в localStorage
+        localStorage.setItem(
+          `liked-${this._cardId}`,
+          buttonLike.classList.contains("elements__like-button_active")
+        );
       })
       .catch((err) =>
         console.error(`Ошибка при изменении статуса лайка карточки: ${err}`)
@@ -107,6 +119,10 @@ export default class Card {
       .deleteCard(this._cardId)
       .then(() => {
         this._element.remove();
+
+        // Удаляем состояние лайка из localStorage после удаления карточки
+        localStorage.removeItem(`liked-${this._cardId}`);
+
         this._element = null;
       })
       .catch((err) => {
