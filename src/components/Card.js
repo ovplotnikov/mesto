@@ -39,7 +39,6 @@ export default class Card {
       deleteButton.style.display = "none";
     }
 
-    // Устанавливаем состояние лайка из localStorage
     const buttonLike = this._element.querySelector(".elements__like-button");
     if (localStorage.getItem(`liked-${this._cardId}`) === "true") {
       buttonLike.classList.add("elements__like-button_active");
@@ -85,7 +84,6 @@ export default class Card {
           ".elements__like-counter"
         );
         this._setLikesCount(likeCounter, cardData.likes.length);
-
         // Сохраняем состояние лайка в localStorage
         localStorage.setItem(
           `liked-${this._cardId}`,
@@ -100,18 +98,25 @@ export default class Card {
   _handleDeleteCard() {
     const confirmPopup = document.querySelector("#popup_confirm");
     confirmPopup.classList.add("popup_opened");
-
     const confirmButton = confirmPopup.querySelector(".popup__save-button");
-    confirmButton.addEventListener("click", (event) => {
+    const closeButton = confirmPopup.querySelector(".popup__close-button");
+
+    const handleConfirm = (event) => {
       event.preventDefault();
       this._deleteCard();
       confirmPopup.classList.remove("popup_opened");
-    });
+      confirmButton.removeEventListener("click", handleConfirm);
+      closeButton.removeEventListener("click", handleClose);
+    };
 
-    const closeButton = confirmPopup.querySelector(".popup__close-button");
-    closeButton.addEventListener("click", () => {
+    const handleClose = () => {
       confirmPopup.classList.remove("popup_opened");
-    });
+      confirmButton.removeEventListener("click", handleConfirm);
+      closeButton.removeEventListener("click", handleClose);
+    };
+
+    confirmButton.addEventListener("click", handleConfirm);
+    closeButton.addEventListener("click", handleClose);
   }
 
   _deleteCard() {
@@ -119,7 +124,6 @@ export default class Card {
       .deleteCard(this._cardId)
       .then(() => {
         this._element.remove();
-
         // Удаляем состояние лайка из localStorage после удаления карточки
         localStorage.removeItem(`liked-${this._cardId}`);
 
