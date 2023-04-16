@@ -14,7 +14,15 @@ export const buttonEditAvatar = document.querySelector(
   ".profile__avatar-overlay"
 );
 
-export const buttonSave = document.querySelectorAll(".popup__save-button");
+export const popupChangeAvatarSaveButton = document.querySelector(
+  ".popup_type_change-avatar .popup__save-button"
+);
+export const popupEditProfileSaveButton = document.querySelector(
+  ".popup_type_edit-profile .popup__save-button"
+);
+export const popupAddCardSaveButton = document.querySelector(
+  ".popup_type_add-card .popup__save-button"
+);
 
 export const validationConfig = {
   formSelector: ".popup__form",

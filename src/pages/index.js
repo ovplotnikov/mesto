@@ -15,9 +15,10 @@ import {
   buttonEditProfile,
   buttonAddCard,
   formAddCard,
-  buttonSave,
   formChangeAvatar,
-  cohortId,
+  popupChangeAvatarSaveButton,
+  popupEditProfileSaveButton,
+  popupAddCardSaveButton,
 } from "../utils/constants.js";
 let cardsSection = null;
 
@@ -69,14 +70,11 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
 // Функция обработки отправки формы смены аватара
 function handleFormChangeAvatarSubmit(formData) {
-  const saveButton = popupChangeAvatarInstance
-    .getPopupElement()
-    .querySelector(".popup__save-button");
-  const defaultButtonText = saveButton.textContent;
+  const defaultButtonText = popupChangeAvatarSaveButton.textContent;
 
   // Изменяем текст кнопки на «Сохранение...» и блокируем ее
   popupChangeAvatarInstance.setButtonText("Сохранение...");
-  saveButton.setAttribute("disabled", "");
+  popupChangeAvatarSaveButton.setAttribute("disabled", "");
 
   api
     .updateAvatar(formData.link)
@@ -94,7 +92,7 @@ function handleFormChangeAvatarSubmit(formData) {
     .finally(() => {
       // Восстанавливаем исходный текст кнопки и разблокируем ее
       popupChangeAvatarInstance.setButtonText(defaultButtonText);
-      saveButton.removeAttribute("disabled");
+      popupChangeAvatarSaveButton.removeAttribute("disabled");
     });
 }
 
@@ -125,14 +123,12 @@ function createCard(data, templateSelector, userId) {
 // Функция обработки отправки формы изменения профиля
 function handleFormEditProfileSubmit(formData) {
   const userData = { name: formData.name, about: formData.about };
-  const saveButton = popupEditProfileInstance
-    .getPopupElement()
-    .querySelector(".popup__save-button");
-  const defaultButtonText = saveButton.textContent;
+
+  const defaultButtonText = popupEditProfileSaveButton.textContent;
 
   // Изменяем текст кнопки на «Сохранение...» и блокируем ее
   popupEditProfileInstance.setButtonText("Сохранение...");
-  saveButton.setAttribute("disabled", "");
+  popupEditProfileSaveButton.setAttribute("disabled", "");
 
   api
     .updateUserInfo(userData)
@@ -150,19 +146,16 @@ function handleFormEditProfileSubmit(formData) {
     .finally(() => {
       // Восстанавливаем исходный текст кнопки и разблокируем ее
       popupEditProfileInstance.setButtonText(defaultButtonText);
-      saveButton.removeAttribute("disabled");
+      popupEditProfileSaveButton.removeAttribute("disabled");
     });
 }
 
 // Функция обработки отправки формы добавления карточки
 function handleAddCardFormSubmit(formData) {
-  const saveButton = popupAddCardInstance
-    .getPopupElement()
-    .querySelector(".popup__save-button");
-  const defaultButtonText = saveButton.textContent;
+  const defaultButtonText = popupAddCardSaveButton.textContent;
 
   popupAddCardInstance.setButtonText("Сохранение...");
-  saveButton.setAttribute("disabled", "");
+  popupAddCardSaveButton.setAttribute("disabled", "");
 
   api
     .addCard(formData.name, formData.link)
@@ -178,7 +171,7 @@ function handleAddCardFormSubmit(formData) {
     .finally(() => {
       // Восстанавливаем исходный текст кнопки и разблокируем ее
       popupAddCardInstance.setButtonText(defaultButtonText);
-      saveButton.removeAttribute("disabled");
+      popupAddCardSaveButton.removeAttribute("disabled");
     });
 }
 
