@@ -5,6 +5,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api";
 import {
@@ -104,8 +105,18 @@ function handleLike(cardId, isLiked) {
 }
 
 // Функция для обработки события удаления карточки
-function handleDelete(cardId) {
-  return api.deleteCard(cardId);
+function handleDelete(card) {
+  popupConfirmDeleteInstance.open(() => {
+    api
+      .deleteCard(card._cardId)
+      .then(() => {
+        card.remove();
+        popupConfirmDeleteInstance.close();
+      })
+      .catch((err) => {
+        console.error(`Ошибка при удалении карточки: ${err}`);
+      });
+  });
 }
 
 // Функция создания карточки
@@ -193,6 +204,11 @@ const popupChangeAvatarInstance = new PopupWithForm(
   (evt, formData) => handleFormChangeAvatarSubmit(evt, formData)
 );
 
+const popupConfirmDeleteInstance = new PopupWithConfirmation(
+  ".popup_type_confirm",
+  () => {}
+);
+
 const popupImageInstance = new PopupWithImage(".popup_type_image");
 
 // Устанавливаем слушатели событий для экземпляров класса PopupWithForm.
@@ -200,6 +216,7 @@ popupEditProfileInstance.setEventListeners();
 popupAddCardInstance.setEventListeners();
 popupChangeAvatarInstance.setEventListeners();
 popupImageInstance.setEventListeners();
+popupConfirmDeleteInstance.setEventListeners();
 
 const validators = {};
 

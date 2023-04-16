@@ -70,7 +70,7 @@ export default class Card {
       .querySelector(".elements__delete-button")
       .addEventListener("click", (event) => {
         event.stopPropagation();
-        this._handleDeleteCard();
+        this._handleDelete(this);
       });
 
     const elementImage = this._element.querySelector(".elements__image");
@@ -97,52 +97,8 @@ export default class Card {
       );
   }
 
-  _handleDeleteCard() {
-    const confirmPopup = document.querySelector("#popup_confirm");
-    confirmPopup.classList.add("popup_opened");
-    const confirmButton = confirmPopup.querySelector(".popup__save-button");
-    const closeButton = confirmPopup.querySelector(".popup__close-button");
-
-    const handleConfirm = (event) => {
-      event.preventDefault();
-      this._handleDelete(this._cardId)
-        .then(() => {
-          this._element.remove();
-          this._element = null;
-          closePopup();
-        })
-        .catch((err) => {
-          console.error(`Ошибка при удалении карточки: ${err}`);
-        });
-    };
-
-    const handleClose = () => {
-      closePopup();
-    };
-
-    const handleOverlayClose = (event) => {
-      if (event.target.classList.contains("popup_opened")) {
-        closePopup();
-      }
-    };
-
-    const handleEscClose = (event) => {
-      if (event.key === "Escape") {
-        closePopup();
-      }
-    };
-
-    const closePopup = () => {
-      confirmPopup.classList.remove("popup_opened");
-      confirmButton.removeEventListener("click", handleConfirm);
-      closeButton.removeEventListener("click", handleClose);
-      confirmPopup.removeEventListener("click", handleOverlayClose);
-      document.removeEventListener("keydown", handleEscClose);
-    };
-
-    confirmButton.addEventListener("click", handleConfirm);
-    closeButton.addEventListener("click", handleClose);
-    confirmPopup.addEventListener("click", handleOverlayClose);
-    document.addEventListener("keydown", handleEscClose);
+  remove() {
+    this._element.remove();
+    this._element = null;
   }
 }
