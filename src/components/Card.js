@@ -98,8 +98,7 @@ export default class Card {
 
     const handleConfirm = (event) => {
       event.preventDefault();
-      this._deleteCard();
-      closePopup();
+      this._deleteCard().then(closePopup);
     };
 
     const handleClose = () => {
@@ -133,7 +132,7 @@ export default class Card {
   }
 
   _deleteCard() {
-    this._api
+    return this._api
       .deleteCard(this._cardId)
       .then(() => {
         this._element.remove();
