@@ -38,14 +38,34 @@ const api = new Api({
 
 let userId = null;
 
-api.getUserInfo().then((userData) => {
-  userId = userData._id;
-  userInfo.setUserInfo({
-    name: userData.name,
-    about: userData.about,
-    avatar: userData.avatar,
+// Запрос данных пользователя и карточек с сервера
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
+    userId = userData._id;
+    userInfo.setUserInfo({
+      name: userData.name,
+      about: userData.about,
+      avatar: userData.avatar,
+    });
+
+    // Создаем экземпляр класса Section для рендеринга карточек
+    cardsSection = new Section(
+      {
+        items: initialCards,
+        renderer: (item) => {
+          const cardElement = createCard(item, ".elements-template", userId);
+          return cardElement;
+        },
+      },
+      ".elements__list"
+    );
+
+    // Вызываем метод renderItems для рендеринга исходных элементов.
+    cardsSection.renderItems();
+  })
+  .catch((err) => {
+    console.error(`Ошибка при получении данных: ${err}`);
   });
-});
 
 // Функция обработки отправки формы смены аватара
 function handleFormChangeAvatarSubmit(formData) {
@@ -101,23 +121,6 @@ function createCard(data, templateSelector, userId) {
   const cardElement = card.generateCard();
   return cardElement;
 }
-
-api.getInitialCards().then((initialCards) => {
-  // Создаем экземпляр класса Section для рендеринга карточек
-  cardsSection = new Section(
-    {
-      items: initialCards,
-      renderer: (item) => {
-        const cardElement = createCard(item, ".elements-template", userId);
-        return cardElement;
-      },
-    },
-    ".elements__list"
-  );
-
-  // Вызываем метод renderItems для рендеринга исходных элементов.
-  cardsSection.renderItems();
-});
 
 // Функция обработки отправки формы изменения профиля
 function handleFormEditProfileSubmit(formData) {
