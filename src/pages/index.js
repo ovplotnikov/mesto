@@ -153,7 +153,6 @@ function handleAddCardFormSubmit(evt, formData) {
       const element = createCard(cardData, ".elements-template", userId);
       cardsSection.addItem(element);
       popupAddCardInstance.close();
-      validators[formAddCard.name].toggleButtonState();
     })
     .catch((err) => {
       console.error(`Ошибка при добавлении карточки: ${err}`);
@@ -207,17 +206,19 @@ enableValidation(validationConfig);
 
 // Слушатели событий для кнопок для открытия popups
 buttonEditProfile.addEventListener("click", () => {
-  popupEditProfileInstance.open();
   const currentUserInfo = userInfo.getUserInfo();
   popupFormInputName.value = currentUserInfo.name;
   popupFormInputAbout.value = currentUserInfo.about;
+  validators[popupEditProfileInstance._form.name].toggleButtonState();
+  popupEditProfileInstance.open();
 });
 
 buttonAddCard.addEventListener("click", () => {
+  validators[popupAddCardInstance._form.name].toggleButtonState();
   popupAddCardInstance.open();
 });
 
 buttonEditAvatar.addEventListener("click", () => {
-  validators[formChangeAvatar.name].toggleButtonState();
+  validators[popupChangeAvatarInstance._form.name].toggleButtonState();
   popupChangeAvatarInstance.open();
 });
