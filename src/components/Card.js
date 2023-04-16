@@ -34,44 +34,43 @@ export default class Card {
     const elementImage = this._element.querySelector(".elements__image");
     elementImage.src = this._link;
     elementImage.alt = this._name;
-    const likeCounter = this._element.querySelector(".elements__like-counter");
-    this._setLikesCount(likeCounter, this._likes.length);
-    this._setEventListeners();
+    this._likeCounter = this._element.querySelector(".elements__like-counter");
+    this._setLikesCount(this._likes.length);
 
-    const deleteButton = this._element.querySelector(
+    this._deleteButton = this._element.querySelector(
       ".elements__delete-button"
     );
+    this._buttonLike = this._element.querySelector(".elements__like-button");
+
+    this._setEventListeners();
+
     if (this._ownerId === this._userId) {
-      deleteButton.style.display = "block";
+      this._deleteButton.style.display = "block";
     } else {
-      deleteButton.style.display = "none";
+      this._deleteButton.style.display = "none";
     }
 
-    const buttonLike = this._element.querySelector(".elements__like-button");
     if (this._likes.some((like) => like._id === this._userId)) {
-      buttonLike.classList.add("elements__like-button_active");
+      this._buttonLike.classList.add("elements__like-button_active");
     }
 
     return this._element;
   }
 
-  _setLikesCount(likeCounter, count) {
-    likeCounter.textContent = count;
-    likeCounter.dataset.likes = count;
+  _setLikesCount(count) {
+    this._likeCounter.textContent = count;
+    this._likeCounter.dataset.likes = count;
   }
 
   _setEventListeners() {
-    const buttonLike = this._element.querySelector(".elements__like-button");
-    buttonLike.addEventListener("click", () => {
-      this._handleLikeCard(buttonLike);
+    this._buttonLike.addEventListener("click", () => {
+      this._handleLikeCard();
     });
 
-    this._element
-      .querySelector(".elements__delete-button")
-      .addEventListener("click", (event) => {
-        event.stopPropagation();
-        this._handleDelete(this);
-      });
+    this._deleteButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      this._handleDelete(this);
+    });
 
     const elementImage = this._element.querySelector(".elements__image");
     elementImage.addEventListener("click", () => {
@@ -79,18 +78,15 @@ export default class Card {
     });
   }
 
-  _handleLikeCard(buttonLike) {
-    const isLiked = buttonLike.classList.contains(
+  _handleLikeCard() {
+    const isLiked = this._buttonLike.classList.contains(
       "elements__like-button_active"
     );
 
     this._handleLike(this._cardId, !isLiked)
       .then((cardData) => {
-        buttonLike.classList.toggle("elements__like-button_active");
-        const likeCounter = this._element.querySelector(
-          ".elements__like-counter"
-        );
-        this._setLikesCount(likeCounter, cardData.likes.length);
+        this._buttonLike.classList.toggle("elements__like-button_active");
+        this._setLikesCount(cardData.likes.length);
       })
       .catch((err) =>
         console.error(`Ошибка при изменении статуса лайка карточки: ${err}`)
