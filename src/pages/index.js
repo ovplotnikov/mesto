@@ -207,8 +207,10 @@ enableValidation(validationConfig);
 // Слушатели событий для кнопок для открытия popups
 buttonEditProfile.addEventListener("click", () => {
   const currentUserInfo = userInfo.getUserInfo();
-  popupFormInputName.value = currentUserInfo.name;
-  popupFormInputAbout.value = currentUserInfo.about;
+  popupEditProfileInstance.setInputValues({
+    name: currentUserInfo.name,
+    about: currentUserInfo.about,
+  });
   validators[popupEditProfileInstance._form.name].toggleButtonState();
   popupEditProfileInstance.open();
 });

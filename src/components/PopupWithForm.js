@@ -29,6 +29,14 @@ export default class PopupWithForm extends Popup {
     });
   }
 
+  setInputValues(inputValues) {
+    this._inputList.forEach((input) => {
+      if (inputValues.hasOwnProperty(input.name)) {
+        input.value = inputValues[input.name];
+      }
+    });
+  }
+
   close() {
     super.close();
     this._form.reset();
