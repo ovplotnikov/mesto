@@ -16,9 +16,6 @@ import {
   buttonAddCard,
   formAddCard,
   formChangeAvatar,
-  popupChangeAvatarSaveButton,
-  popupEditProfileSaveButton,
-  popupAddCardSaveButton,
 } from "../utils/constants.js";
 let cardsSection = null;
 
@@ -69,12 +66,13 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   });
 
 // Функция обработки отправки формы смены аватара
-function handleFormChangeAvatarSubmit(formData) {
-  const defaultButtonText = popupChangeAvatarSaveButton.textContent;
+function handleFormChangeAvatarSubmit(evt, formData) {
+  const submitButton = evt.submitter;
+  const defaultButtonText = submitButton.textContent;
 
   // Изменяем текст кнопки на «Сохранение...» и блокируем ее
   popupChangeAvatarInstance.setButtonText("Сохранение...");
-  popupChangeAvatarSaveButton.setAttribute("disabled", "");
+  submitButton.setAttribute("disabled", "");
 
   api
     .updateAvatar(formData.link)
@@ -92,18 +90,9 @@ function handleFormChangeAvatarSubmit(formData) {
     .finally(() => {
       // Восстанавливаем исходный текст кнопки и разблокируем ее
       popupChangeAvatarInstance.setButtonText(defaultButtonText);
-      popupChangeAvatarSaveButton.removeAttribute("disabled");
+      submitButton.removeAttribute("disabled");
     });
 }
-
-// Создаем экземпляр класса PopupWithForm для смены аватара.
-const popupChangeAvatarInstance = new PopupWithForm(
-  ".popup_type_change-avatar",
-  handleFormChangeAvatarSubmit
-);
-
-// Устанавливаем слушатели событий для экземпляра класса PopupWithForm (смены аватара).
-popupChangeAvatarInstance.setEventListeners();
 
 // Функция для обработки card click
 function handleCardClick(name, link) {
@@ -121,14 +110,14 @@ function createCard(data, templateSelector, userId) {
 }
 
 // Функция обработки отправки формы изменения профиля
-function handleFormEditProfileSubmit(formData) {
+function handleFormEditProfileSubmit(evt, formData) {
   const userData = { name: formData.name, about: formData.about };
-
-  const defaultButtonText = popupEditProfileSaveButton.textContent;
+  const submitButton = evt.submitter;
+  const defaultButtonText = submitButton.textContent;
 
   // Изменяем текст кнопки на «Сохранение...» и блокируем ее
   popupEditProfileInstance.setButtonText("Сохранение...");
-  popupEditProfileSaveButton.setAttribute("disabled", "");
+  submitButton.setAttribute("disabled", "");
 
   api
     .updateUserInfo(userData)
@@ -146,16 +135,17 @@ function handleFormEditProfileSubmit(formData) {
     .finally(() => {
       // Восстанавливаем исходный текст кнопки и разблокируем ее
       popupEditProfileInstance.setButtonText(defaultButtonText);
-      popupEditProfileSaveButton.removeAttribute("disabled");
+      submitButton.removeAttribute("disabled");
     });
 }
 
 // Функция обработки отправки формы добавления карточки
-function handleAddCardFormSubmit(formData) {
-  const defaultButtonText = popupAddCardSaveButton.textContent;
+function handleAddCardFormSubmit(evt, formData) {
+  const submitButton = evt.submitter;
+  const defaultButtonText = submitButton.textContent;
 
   popupAddCardInstance.setButtonText("Сохранение...");
-  popupAddCardSaveButton.setAttribute("disabled", "");
+  submitButton.setAttribute("disabled", "");
 
   api
     .addCard(formData.name, formData.link)
@@ -171,24 +161,32 @@ function handleAddCardFormSubmit(formData) {
     .finally(() => {
       // Восстанавливаем исходный текст кнопки и разблокируем ее
       popupAddCardInstance.setButtonText(defaultButtonText);
-      popupAddCardSaveButton.removeAttribute("disabled");
+      submitButton.removeAttribute("disabled");
     });
 }
 
 // Создаем экземпляры класса PopupWithForm для каждого всплывающего окна.
 const popupEditProfileInstance = new PopupWithForm(
   ".popup_type_edit-profile",
-  handleFormEditProfileSubmit
+  (evt, formData) => handleFormEditProfileSubmit(evt, formData)
 );
+
 const popupAddCardInstance = new PopupWithForm(
   ".popup_type_add-card",
-  handleAddCardFormSubmit
+  (evt, formData) => handleAddCardFormSubmit(evt, formData)
 );
+
+const popupChangeAvatarInstance = new PopupWithForm(
+  ".popup_type_change-avatar",
+  (evt, formData) => handleFormChangeAvatarSubmit(evt, formData)
+);
+
 const popupImageInstance = new PopupWithImage(".popup_type_image");
 
 // Устанавливаем слушатели событий для экземпляров класса PopupWithForm.
 popupEditProfileInstance.setEventListeners();
 popupAddCardInstance.setEventListeners();
+popupChangeAvatarInstance.setEventListeners();
 popupImageInstance.setEventListeners();
 
 const validators = {};

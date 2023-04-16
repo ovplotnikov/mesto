@@ -14,16 +14,6 @@ export const buttonEditAvatar = document.querySelector(
   ".profile__avatar-overlay"
 );
 
-export const popupChangeAvatarSaveButton = document.querySelector(
-  ".popup_type_change-avatar .popup__save-button"
-);
-export const popupEditProfileSaveButton = document.querySelector(
-  ".popup_type_edit-profile .popup__save-button"
-);
-export const popupAddCardSaveButton = document.querySelector(
-  ".popup_type_add-card .popup__save-button"
-);
-
 export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -37,10 +27,10 @@ export const formAddCard = document
   .querySelector(".popup_type_add-card")
   .querySelector(validationConfig.formSelector);
 
-export const formEditProfile = document
-  .querySelector(".popup_type_edit-profile")
-  .querySelector(validationConfig.formSelector);
-
 export const formChangeAvatar = document.querySelector(
   "#popup__form_type_change-avatar"
 );
+
+// export const formEditProfile = document
+//   .querySelector(".popup_type_edit-profile")
+//   .querySelector(validationConfig.formSelector);
