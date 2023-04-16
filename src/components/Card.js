@@ -1,5 +1,12 @@
 export default class Card {
-  constructor(data, templateSelector, handleCardClick, api, userId) {
+  constructor(
+    data,
+    templateSelector,
+    handleCardClick,
+    handleLike,
+    handleDelete,
+    userId
+  ) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -7,7 +14,8 @@ export default class Card {
     this._cardId = data._id;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._api = api;
+    this._handleLike = handleLike;
+    this._handleDelete = handleDelete;
     this._userId = userId;
   }
 
@@ -76,8 +84,7 @@ export default class Card {
       "elements__like-button_active"
     );
 
-    this._api
-      .changeLikeCardStatus(this._cardId, !isLiked)
+    this._handleLike(this._cardId, !isLiked)
       .then((cardData) => {
         buttonLike.classList.toggle("elements__like-button_active");
         const likeCounter = this._element.querySelector(
@@ -98,7 +105,15 @@ export default class Card {
 
     const handleConfirm = (event) => {
       event.preventDefault();
-      this._deleteCard().then(closePopup);
+      this._handleDelete(this._cardId)
+        .then(() => {
+          this._element.remove();
+          this._element = null;
+          closePopup();
+        })
+        .catch((err) => {
+          console.error(`Ошибка при удалении карточки: ${err}`);
+        });
     };
 
     const handleClose = () => {
@@ -129,17 +144,5 @@ export default class Card {
     closeButton.addEventListener("click", handleClose);
     confirmPopup.addEventListener("click", handleOverlayClose);
     document.addEventListener("keydown", handleEscClose);
-  }
-
-  _deleteCard() {
-    return this._api
-      .deleteCard(this._cardId)
-      .then(() => {
-        this._element.remove();
-        this._element = null;
-      })
-      .catch((err) => {
-        console.error(`Ошибка при удалении карточки: ${err}`);
-      });
   }
 }

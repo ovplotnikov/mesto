@@ -1,10 +1,5 @@
 // Переменные для popups
-export const popupFormInputName = document.querySelector(
-  ".popup__input_value_name"
-);
-export const popupFormInputAbout = document.querySelector(
-  ".popup__input_value_about"
-);
+
 export const buttonEditProfile = document.querySelector(
   ".profile__edit-button"
 );
@@ -22,15 +17,3 @@ export const validationConfig = {
   inputErrorClass: "popup__input-error",
   errorClass: "popup__error_visible",
 };
-
-export const formAddCard = document
-  .querySelector(".popup_type_add-card")
-  .querySelector(validationConfig.formSelector);
-
-export const formChangeAvatar = document.querySelector(
-  "#popup__form_type_change-avatar"
-);
-
-// export const formEditProfile = document
-//   .querySelector(".popup_type_edit-profile")
-//   .querySelector(validationConfig.formSelector);

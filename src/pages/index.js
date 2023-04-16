@@ -10,12 +10,8 @@ import Api from "../components/Api";
 import {
   validationConfig,
   buttonEditAvatar,
-  popupFormInputName,
-  popupFormInputAbout,
   buttonEditProfile,
   buttonAddCard,
-  formAddCard,
-  formChangeAvatar,
 } from "../utils/constants.js";
 let cardsSection = null;
 
@@ -102,9 +98,26 @@ function handleCardClick(name, link) {
   });
 }
 
+// Функция для обработки события лайка карточки
+function handleLike(cardId, isLiked) {
+  return api.changeLikeCardStatus(cardId, isLiked);
+}
+
+// Функция для обработки события удаления карточки
+function handleDelete(cardId) {
+  return api.deleteCard(cardId);
+}
+
 // Функция создания карточки
 function createCard(data, templateSelector, userId) {
-  const card = new Card(data, templateSelector, handleCardClick, api, userId);
+  const card = new Card(
+    data,
+    templateSelector,
+    handleCardClick,
+    handleLike,
+    handleDelete,
+    userId
+  );
   const cardElement = card.generateCard();
   return cardElement;
 }
