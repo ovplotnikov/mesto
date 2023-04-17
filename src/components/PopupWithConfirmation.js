@@ -14,15 +14,20 @@ export default class PopupWithConfirmation extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._confirmButton.addEventListener("click", (event) => {
+    this._confirmButton.addEventListener("click", async (event) => {
       event.preventDefault();
-      this._handleConfirm();
-      this._confirmButton.setAttribute("disabled", ""); // Добавьте эту строку для блокировки кнопки
+      this._confirmButton.setAttribute("disabled", "");
+      try {
+        await this._handleConfirm();
+      } catch (error) {
+        console.error("Error in handleConfirm:", error);
+      } finally {
+        this._confirmButton.removeAttribute("disabled");
+      }
     });
   }
 
   close() {
     super.close();
-    this._confirmButton.removeAttribute("disabled"); // Удалите атрибут disabled при закрытии попапа
   }
 }
